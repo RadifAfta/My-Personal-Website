@@ -68,7 +68,7 @@ const projectsData = [
     description: "A Laravel-based bootcamp management platform featuring AI-driven recommendations for personalized learning.",
     fullDescription: "An educational platform designed for tech bootcamps. It includes a catalog of courses, AI-powered course recommendations, and testimonials from previous learners.",
     image: "/assets/thumbnailBootcampWeb.PNG",
-    video: "/assets/DemoBootcampWeb.mp4",
+    video: "/assets/DemoWebBootcamp.mp4",
     tags: ["Laravel", "MySQL", "Bootstrap"],
     features: [
       "About Us Page: Provides detailed information about the company and its mission.",
