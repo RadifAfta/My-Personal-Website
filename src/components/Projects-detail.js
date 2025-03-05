@@ -76,7 +76,9 @@ const projectsData = [
       "AI-Based Course Recommendation: Suggests courses based on user preferences and past interactions.",
       "Student Testimonials: Showcases feedback from past students to build credibility.",
       "Interactive Dashboard: Enables users to track enrolled courses and progress.",
-      "Secure Payment Integration: Supports online payment for course enrollment."
+      "Secure Payment Integration: Supports online payment for course enrollment.",
+      "Admin Dashboard: Allows administrators to manage courses, users, payments, and content efficiently.",
+      "Course Payment System: Enables users to purchase and enroll in courses using various payment methods."
     ],
     technologies: "he backend is developed using Laravel, ensuring high performance and scalability. The frontend is built with Vue.js or React.js, providing an interactive and user-friendly experience. The database is managed with MySQL for efficient data handling. AI-based course recommendations are powered by Python (scikit-learn/TensorFlow), improving user experience with personalized learning suggestions.",
     codeLink: "https://github.com/RadifAfta/GoldGenAcademy",
