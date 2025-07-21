@@ -92,7 +92,7 @@ const projectsData = [
       "Compatible with LAN and remote setups."
     ],
     technologies: "Flutter (frontend), Express.js (backend), MySQL (database), integrated with IoT hardware.",
-    codeLink: "https://github.com/radifafta/jtv-attendance",
+    codeLink: "https://github.com/RadifAfta/backend_jtv_presensi",
     year: 2025
   },
   {
