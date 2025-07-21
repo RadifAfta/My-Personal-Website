@@ -20,7 +20,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {/* Logo/Brand Section */}
           <div className="text-center md:text-left">
-            <h3 className="text-xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-400 bg-clip-text text-transparent mb-4">John Doe</h3>
+            <h3 className="text-xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-400 bg-clip-text text-transparent mb-4">Radief</h3>
             <p className="text-sm text-gray-400">Passionate web developer creating modern digital experiences with cutting-edge technologies.</p>
           </div>
           
@@ -59,7 +59,7 @@ const Footer = () => {
         
         {/* Copyright */}
         <div className="pt-8 border-t border-white/5 text-center">
-          <p className="text-sm text-gray-400">&copy; {currentYear} John Doe. All rights reserved.</p>
+          <p className="text-sm text-gray-400">&copy; {currentYear} Radief. All rights reserved.</p>
         </div>
       </div>
     </footer>

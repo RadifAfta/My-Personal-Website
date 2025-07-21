@@ -23,13 +23,13 @@ const About = () => {
             {/* Main Image with enhanced container */}
             <div className="relative w-full h-full rounded-2xl overflow-hidden transition-all duration-700 group-hover:scale-[1.02] shadow-2xl shadow-violet-500/10">
               <img
-                src="/assets/hero2.jpg"
+                src="/assets/hero/radifhima.JPG"
                 alt="Profile"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               {/* Enhanced overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
-              
+
               {/* Subtle shimmering effect on hover */}
               <div className="absolute inset-0 bg-gradient-to-tr from-violet-500/10 to-fuchsia-500/10 opacity-0 group-hover:opacity-30 transition-opacity duration-700"></div>
             </div>
@@ -89,20 +89,20 @@ const About = () => {
             {/* Enhanced About Text with better typography */}
             <div className="space-y-6 text-gray-300">
               <p className="text-lg leading-relaxed relative pl-4 border-l-2 border-violet-500/30">
-                I am an Information Technology student at Telkom University with a strong passion for web development. I enjoy building innovative and functional digital solutions that enhance user experience.
+                I am a final-year Information Technology student at Telkom University with a GPA of 3.83. I specialize in backend and fullstack web development using technologies like Laravel, MySQL, and React.js.
               </p>
 
               <p className="text-lg leading-relaxed relative pl-4 border-l-2 border-fuchsia-500/30">
-                I have hands-on experience in software engineering, having completed a six-month internship at PT Pelindo Marine Service. I am always eager to learn and adapt to the evolving technology landscape.
+                I have completed internships at PT Pelindo Marine Service and Involuntir, where I developed CRUD APIs, integrated payment systems, and optimized dashboard applications. I am passionate about building efficient backend systems and always eager to explore new technologies.
               </p>
 
               {/* Enhanced Key Points */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
                 {[
-                  'Web Development',
-                  'UI/UX Design',
-                  'Problem Solving',
-                  'Clean Code'
+                  'Backend Development',
+                  'RESTful API Integration',
+                  'Database Design',
+                  'Laravel & MySQL'
                 ].map((skill, index) => (
                   <div key={skill} className="flex items-center gap-3 group p-3 rounded-lg transition-all duration-300 hover:bg-white/5">
                     <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-gradient-to-br from-violet-600/20 to-fuchsia-500/20 group-hover:from-violet-600/30 group-hover:to-fuchsia-500/30 transition-all duration-300">

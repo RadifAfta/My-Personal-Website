@@ -1,3 +1,4 @@
+import { image } from 'framer-motion/client';
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
@@ -5,24 +6,97 @@ import { useParams, Link } from 'react-router-dom';
 const projectsData = [
   {
     id: 1,
-    title: "Admin Website for Company Profile",
-    description: "A CodeIgniter-based CRUD system that allows administrators to manage and update company profile information efficiently. Includes features such as user authentication, content management, and file uploads.",
-    fullDescription: "A dynamic and user-friendly CRUD-based admin panel for managing a company's profile website. It allows administrators to easily update company details, services, team members, and other relevant information. Designed to streamline content management efficiently.",
-    image: "/assets/thumbnailAdminPms.PNG",
-    video: "/assets/AdminPmsDemo.mp4",
-    tags: ["Php", "Codeigniter", "MySQL"],
+    title: "Dashboard for Monitoring PPE Violation Detection",
+    description: "A real-time dashboard that monitors PPE violations using YOLOv5 and CCTV integration, automatically updating detected incidents and providing risk profiling. Built with Flask (Python) for efficient processing.",
+    fullDescription: "This project is a real-time monitoring dashboard designed to detect Personal Protective Equipment (PPE) violations using YOLOv5 and CCTV integration. The system automatically captures and logs violations when workers are detected without proper safety gear, such as helmets or vests. The dashboard provides live updates, risk profiling, and automated alerts to improve workplace safety.",
+    image: "/assets/thumbnailApdDashboard.PNG",
+    tags: ["Flask", "Python", "css", "html"],
+    video: "/assets/DemoApdDashboard.mp4",
     features: [
-      "CRUD Operations: Create, Read, Update, and Delete content for various sections such as company details, services, and team members.",
-      "Image Upload: Admins can upload and manage images for different sections (e.g., team photos, banners, portfolio).",
-      "User Authentication & Role Management: Secure access for different user roles (Admin, Editor, Viewer).",
-      "Content Management System: Allows easy editing of text, images, and links without coding knowledge."
+      "Real - time Violation Detection: When a violation is detected via CCTV and YOLOv5, the captured image is automatically uploaded to the dashboard.",
+      "Auto - Update & Auto - Scroll: The latest violations appear at the top of the dashboard, and the system automatically scrolls to show the most recent incidents.",
+      "Risk Profile Feature: Displays a risk assessment based on the frequency and severity of PPE violations in different areas.",
+      "Violation History Log: Stores all detected violations for future reference and analysis.",
+      "User Access Management: Allows administrators to review and manage violations efficiently."
     ],
-    technologies: "This project was developed using CodeIgniter as the main backend framework, ensuring fast and secure CRUD operations. The frontend utilizes HTML, CSS, and JavaScript (Bootstrap) to provide a responsive and user-friendly experience. For data management, MySQL was used as the database. The system is deployed on Apache/Nginx servers, ensuring stability and scalability.",
-    codeLink: "https://github.com/yourusername/rahasia",
+    technologies: "The backend is built using Flask (Python) for fast and efficient processing of real-time detection data. The YOLOv5 deep learning model is utilized for accurate PPE violation detection. The system is integrated with CCTV cameras, and images are processed using OpenCV. The frontend uses HTML, CSS, and JavaScript to provide an interactive and responsive user experience. ",
+    codeLink: "https://github.com/RadifAfta/Dashboar-Monitoring-PPE-Violations",
     year: 2024
   },
   {
     id: 2,
+    title: "Rintisar – Startup Hub Booking Platform",
+    description: "A Laravel-based platform for startup founders to book meeting spaces using Flip payments (QRIS & bank), Google login, and geolocation-based search.",
+    fullDescription: "Rintisar is a digital platform designed for startup founders or aspiring entrepreneurs to easily book meeting rooms or co-working spaces in their nearby area. The system allows users to register or log in using Google OAuth, detects user location via Geolocation API, and provides location-aware space suggestions. Users can browse available spaces, view details, and make reservations with integrated Flip payment gateway that supports QRIS and bank transfers. The platform also includes profile update functionality, and secure role-based access control.",
+    // images: [
+    //   "/assets/thumbnailRintisar1.png",
+    //   "/assets/thumbnailRintisar2.png",
+    //   "/assets/thumbnailRintisar3.png"
+    // ],
+    image: "/assets/thumbnail/rintisar_thumbnail.png",
+    video: "/assets/demo/demo_rintisar.mp4",
+    tags: ["Laravel", "PHP", "MySQL", "Flip", "OAuth", "Geolocation"],
+    features: [
+      "Google OAuth login and registration.",
+      "User geolocation detection to show nearby startup hubs.",
+      "Reservation system with real-time availability and confirmation.",
+      "Flip payment gateway integration with QRIS and bank transfer support.",
+      "User profile editing with image uploads.",
+    ],
+    technologies: "Developed using Laravel (backend), MySQL (database), and React (frontend). Integrated Google OAuth 2.0 for authentication and HTML5 Geolocation API to get real-time user location. Payment processing is handled using Flip API, supporting both QRIS and bank transfers. Deployed on cPanel-based hosting.",
+    codeLink: "https://github.com/radifafta/rahasia",
+    year: 2025
+  },
+  {
+    id: 3,
+    title: "Diserasi – AI-Powered Dating App",
+    description: "Laravel-based dating platform with Google login, AI-powered matchmaking, geolocation, and payment system integration via Flip.",
+    fullDescription: "Diserasi is a smart dating web platform designed to help users find meaningful connections based on compatibility scoring and real-time interactions. Built with Laravel and MySQL, the platform offers Google OAuth authentication for seamless login, uses the Geolocation API to match users based on proximity, and supports Flip payment integration (QRIS and bank) for premium features. One of its core highlights is the 'Match Game' – an interactive feature that allows users to answer prompts or challenges, which contributes to the AI-based matchmaking logic. The system includes profile management, and admin moderation.",
+    images: [
+      "/assets/gallery/postman_diserasi.png",
+      "/assets/gallery/admin_dashboard_diserasi.png",
+    ],
+    image: "/assets/thumbnail/diserasi_thumbnail.png",
+    video: "/assets/demo/demo_diserasi.mp4",
+    tags: ["Laravel", "PHP", "MySQL", "AI", "OAuth", "Geolocation", "Flip"],
+    features: [
+      "Google OAuth login and authentication.",
+      "Geolocation-based user suggestions for nearby matches.",
+      "AI-powered match recommendation engine.",
+      "Interactive Match Game for enhancing compatibility scoring.",
+      "Flip payment gateway integration (QRIS & bank transfer).",
+      "User profile editing and image upload.",
+      "Admin dashboard for user moderation and analytics."
+    ],
+    technologies: "Built using Laravel as the backend framework with MySQL database. Integrates Google OAuth 2.0 for authentication, Flip for payment processing, and AI logic to calculate compatibility scores. Geolocation API is used to detect and filter nearby matches. Frontend is styled using React, and the system is deployed on shared hosting with cPanel.",
+    codeLink: "https://github.com/radifafta/rahasia",
+    year: 2025
+  },
+  {
+    id: 4,
+    title: "JTV Attendance System – IoT Integrated",
+    description: "An attendance system integrating QR check-in via IoT devices and storing data in real-time to the server.",
+    fullDescription: "JTV's attendance system uses IoT and QR technology to record presence digitally. The project consists of a Flutter frontend, Express.js backend, and MongoDB database, enabling real-time check-in tracking through QR scanning.",
+    images: [
+      "/assets/gallery/postman_jtv.png",
+      "/assets/gallery/database_jtv.png"
+    ],
+    image: "/assets/thumbnail/jtv_thumbnail.png",
+    video: "/assets/demo/demo_jtv.mp4",
+    tags: ["Express.js", "Flutter", "MySQL", "IoT"],
+    features: [
+      "QR-based check-in via IoT camera/module.",
+      "Real-time database logging.",
+      "Clean UI for mobile users (Flutter).",
+      "Express.js backend with API endpoint.",
+      "Compatible with LAN and remote setups."
+    ],
+    technologies: "Flutter (frontend), Express.js (backend), MySQL (database), integrated with IoT hardware.",
+    codeLink: "https://github.com/radifafta/jtv-attendance",
+    year: 2025
+  },
+  {
+    id: 5,
     title: "Portfolio Website",
     description: "A React.js-powered personal website designed to showcase projects, skills, and work experience.",
     fullDescription: "A modern and visually appealing portfolio website showcasing projects, skills, and achievements. Built with React.js, it provides a seamless user experience with interactive elements.",
@@ -41,10 +115,10 @@ const projectsData = [
     ],
     technologies: "This project is built using React.js for a dynamic and interactive frontend, with Tailwind CSS providing a modern and sleek design. For form submissions, Node.js can be integrated as the backend if needed. The website is deployed on Vercel or Netlify, ensuring fast performance and seamless updates.",
     codeLink: "https://github.com/RadifAfta/Portofolio-Risalah",
-    year: 2024
+    year: 2025
   },
   {
-    id: 3,
+    id: 6,
     title: "Parking Gate Monitoring Website",
     description: "A Laravel-based web application integrated with IoT devices to monitor parking gate activity in real-time.",
     fullDescription: "A smart parking management system that integrates IoT-based RFID technology to track vehicle and personnel movement in and out of the facility. Provides real-time monitoring and logging capabilities for security and efficiency.",
@@ -63,7 +137,7 @@ const projectsData = [
     year: 2023
   },
   {
-    id: 4,
+    id: 7,
     title: "Bootcamp Website with AI Recommendation",
     description: "A Laravel-based bootcamp management platform featuring AI-driven recommendations for personalized learning.",
     fullDescription: "An educational platform designed for tech bootcamps. It includes a catalog of courses, AI-powered course recommendations, and testimonials from previous learners.",
@@ -85,24 +159,28 @@ const projectsData = [
     year: 2023
   },
   {
-    id: 5,
-    title: "Dashboard for Monitoring PPE Violation Detection",
-    description: "A real-time dashboard that monitors PPE violations using YOLOv5 and CCTV integration, automatically updating detected incidents and providing risk profiling. Built with Flask (Python) for efficient processing.",
-    fullDescription: "This project is a real-time monitoring dashboard designed to detect Personal Protective Equipment (PPE) violations using YOLOv5 and CCTV integration. The system automatically captures and logs violations when workers are detected without proper safety gear, such as helmets or vests. The dashboard provides live updates, risk profiling, and automated alerts to improve workplace safety.",
-    image: "/assets/thumbnailApdDashboard.PNG",
-    tags: ["Flask", "Python", "css", "html"],
-    video: "/assets/DemoApdDashboard.mp4",
+    id: 1,
+    title: "Admin Website for Company Profile",
+    description: "A CodeIgniter-based CRUD system that allows administrators to manage and update company profile information efficiently.",
+    fullDescription: "A dynamic and user-friendly CRUD-based admin panel for managing a company's profile website. It allows administrators to easily update company details, services, team members, and other relevant information. Designed to streamline content management efficiently.",
+    // images: [
+    //   "/assets/thumbnailAdminPms.PNG",
+    //   "/assets/thumbnailAdminPms.PNG",
+    //   "/assets/thumbnailAdminPms.PNG"
+    // ],
+    image: "/assets/thumbnailAdminPms.PNG",
+    video: "/assets/AdminPmsDemo.mp4",
+    tags: ["PHP", "CodeIgniter", "MySQL"],
     features: [
-      "Real - time Violation Detection: When a violation is detected via CCTV and YOLOv5, the captured image is automatically uploaded to the dashboard.",
-      "Auto - Update & Auto - Scroll: The latest violations appear at the top of the dashboard, and the system automatically scrolls to show the most recent incidents.",
-      "Risk Profile Feature: Displays a risk assessment based on the frequency and severity of PPE violations in different areas.",
-      "Violation History Log: Stores all detected violations for future reference and analysis.",
-      "User Access Management: Allows administrators to review and manage violations efficiently."
+      "CRUD Operations: Create, Read, Update, and Delete content for various sections such as company details, services, and team members.",
+      "Image Upload: Admins can upload and manage images for different sections.",
+      "User Authentication & Role Management: Secure access for different user roles.",
+      "Content Management System: Allows editing of content without coding knowledge."
     ],
-    technologies: "The backend is built using Flask (Python) for fast and efficient processing of real-time detection data. The YOLOv5 deep learning model is utilized for accurate PPE violation detection. The system is integrated with CCTV cameras, and images are processed using OpenCV. The frontend uses HTML, CSS, and JavaScript to provide an interactive and responsive user experience. ",
-    codeLink: "https://github.com/RadifAfta/Dashboar-Monitoring-PPE-Violations",
+    technologies: "Built with CodeIgniter (backend), MySQL (database), HTML/CSS/JS (frontend), deployed on Apache server.",
+    codeLink: "https://github.com/radifafta/rahasia",
     year: 2024
-  }
+  },
   // {
   //   id: 5,
   //   title: "Boarding House Management Platform",
@@ -130,6 +208,8 @@ const ProjectDetail = () => {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [showImageModal, setShowImageModal] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -144,6 +224,22 @@ const ProjectDetail = () => {
     return () => clearTimeout(timer);
   }, [id]);
 
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        closeImageModal();
+      }
+    };
+
+    if (showImageModal) {
+      document.addEventListener('keydown', handleEscKey);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, [showImageModal]);
+
   const toggleVideo = () => {
     if (videoRef.current) {
       if (isVideoPlaying) {
@@ -154,6 +250,17 @@ const ProjectDetail = () => {
       setIsVideoPlaying(!isVideoPlaying);
     }
   };
+
+  const openImageModal = (imageSrc) => {
+    setSelectedImage(imageSrc);
+    setShowImageModal(true);
+  };
+
+  const closeImageModal = () => {
+    setShowImageModal(false);
+    setSelectedImage(null);
+  };
+
 
   if (loading) {
     return (
@@ -350,6 +457,54 @@ const ProjectDetail = () => {
                 </p>
               </div>
             </div>
+            <div>
+              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
+                <span className="mr-2">Project Gallery</span>
+                <div className="w-12 h-px bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
+              </h2>
+              <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {project.images && project.images.map((image, idx) => (
+                    <div
+                      key={idx}
+                      className="relative group cursor-pointer"
+                      onClick={() => openImageModal(image)}
+                    >
+                      <img
+                        src={image}
+                        alt={`${project.title} - Screenshot ${idx + 1}`}
+                        className="w-full h-32 object-cover rounded-lg border border-white/10 transition-all group-hover:border-violet-500/30 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all rounded-lg flex items-center justify-center">
+                        <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            {/* Image Modal */}
+            {showImageModal && (
+              <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                <div className="relative max-w-4xl max-h-[90vh] w-full">
+                  <button
+                    onClick={closeImageModal}
+                    className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-all"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                  <img
+                    src={selectedImage}
+                    alt="Project Screenshot"
+                    className="w-full h-full object-contain rounded-lg"
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Sidebar */}

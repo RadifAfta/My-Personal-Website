@@ -6,38 +6,60 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "Admin Website for Company Profile",
-      description: "A CodeIgniter-based CRUD system that allows administrators to manage and update company profile information efficiently.",
-      image: "/assets/thumbnailAdminPms.PNG",
-      tags: ["Php", "Codeigniter", "MySQL"]
+      title: "Dashboard for Monitoring PPE Violation Detection",
+      description: "A real-time dashboard that monitors PPE violations using YOLOv5 and CCTV integration, automatically updating detected incidents and providing risk profiling. Built with Flask (Python) for efficient processing.",
+      image: "/assets/thumbnailApdDashboard.PNG",
+      tags: ["Flask", "Python", "css", "html"]
     },
     {
       id: 2,
+      title: "Rintisar – Startup Hub Booking Platform",
+      description: "A Laravel-based platform for startup founders to book meeting spaces using Flip payments (QRIS & bank), Google login, and geolocation-based search.",
+      image: "/assets/thumbnail/rintisar_thumbnail.png",
+      tags: ["Laravel", "PHP", "MySQL"]
+    },
+    {
+      id: 3,
+      title: "Diserasi – AI-Powered Dating App",
+      description: "Laravel-based dating platform with Google login, AI-powered matchmaking, geolocation, and payment system integration via Flip.",
+      image: "/assets/thumbnail/diserasi_thumbnail.png",
+      tags: ["Laravel", "PHP", "AI", "OAuth", "Geolocation", "Flip"]
+    },
+    {
+      id: 4,
+      title: "JTV Attendance System – IoT Integrated",
+      description: "An IoT-based attendance system with QR check-in, Flutter frontend, and Express.js backend.",
+      image: "/assets/thumbnail/jtv_thumbnail.png",
+      tags: ["Express.js", "Flutter", "MySQL", "IoT"]
+    },
+    {
+      id: 5,
       title: "Portfolio Website",
       description: "A React.js-powered personal website designed to showcase projects, skills, and work experience.",
       image: "/assets/PROJECT.PNG",
       tags: ["React js", "Html", "Css"]
     },
     {
-      id: 3,
+      id: 6,
       title: "Parking Gate Monitoring Website",
       description: "A Laravel-based web application integrated with IoT devices to monitor parking gate activity in real-time.",
       image: "/assets/thumbnailDasboardSmartGate.PNG",
       tags: ["Laravel", "Firebase", "Bootstrap"]
     },
+    
     {
-      id: 4,
+      id: 7,
       title: "Bootcamp Website with AI Recommendation",
       description: "A Laravel-based bootcamp management platform featuring AI-driven recommendations for personalized learning.",
       image: "/assets/thumbnailBootcampWeb.PNG",
       tags: ["Laravel", "MySQL", "Bootstrap"]
     },
     {
-      id: 5,
-      title: "Dashboard for Monitoring PPE Violation Detection",
-      description: "A real-time dashboard that monitors PPE violations using YOLOv5 and CCTV integration, automatically updating detected incidents and providing risk profiling. Built with Flask (Python) for efficient processing.",
-      image: "/assets/thumbnailApdDashboard.PNG",
-      tags: ["Flask", "Python", "css", "html"]
+      id: 8,
+      title: "Admin Website for Company Profile",
+      description: "A CodeIgniter-based CRUD system that allows administrators to manage and update company profile information efficiently.",
+      image: "/assets/thumbnailAdminPms.PNG",
+      tags: ["PHP", "CodeIgniter", "MySQL"]
     },
     // {
     //   id: 5,
@@ -73,10 +95,10 @@ const Projects = () => {
     };
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    
+
     // Store current refs in a variable to avoid the ESLint warning
     const currentRefs = projectRefs.current;
-    
+
     currentRefs.forEach(ref => {
       if (ref) observer.observe(ref);
     });
@@ -116,9 +138,8 @@ const Projects = () => {
               key={project.id}
               ref={el => projectRefs.current[index] = el}
               data-id={project.id}
-              className={`group relative bg-black/30 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden transition-all duration-300 ${
-                isVisible[project.id] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              } ${activeCard === project.id ? 'ring-2 ring-violet-500/50' : ''}`}
+              className={`group relative bg-black/30 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden transition-all duration-300 ${isVisible[project.id] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                } ${activeCard === project.id ? 'ring-2 ring-violet-500/50' : ''}`}
               style={{ transitionDelay: `${index * 100}ms` }}
               onMouseEnter={() => setActiveCard(project.id)}
               onMouseLeave={() => setActiveCard(null)}
