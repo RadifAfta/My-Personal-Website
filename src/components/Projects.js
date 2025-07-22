@@ -15,21 +15,21 @@ const Projects = () => {
       id: 2,
       title: "Rintisar – Startup Hub Booking Platform",
       description: "A Laravel-based platform for startup founders to book meeting spaces using Flip payments (QRIS & bank), Google login, and geolocation-based search.",
-      image: "/assets/thumbnail/rintisar_thumbnail.png",
+      image: "/assets/thumbnail/rintisar_thumbnail.PNG",
       tags: ["Laravel", "PHP", "MySQL"]
     },
     {
       id: 3,
       title: "Diserasi – AI-Powered Dating App",
       description: "Laravel-based dating platform with Google login, AI-powered matchmaking, geolocation, and payment system integration via Flip.",
-      image: "/assets/thumbnail/diserasi_thumbnail.png",
+      image: "/assets/thumbnail/diserasi_thumbnail.PNG",
       tags: ["Laravel", "PHP", "AI", "OAuth", "Geolocation", "Flip"]
     },
     {
       id: 4,
       title: "JTV Attendance System – IoT Integrated",
       description: "An IoT-based attendance system with QR check-in, Flutter frontend, and Express.js backend.",
-      image: "/assets/thumbnail/jtv_thumbnail.png",
+      image: "/assets/thumbnail/jtv_thumbnail.PNG",
       tags: ["Express.js", "Flutter", "MySQL", "IoT"]
     },
     {

@@ -33,7 +33,7 @@ const projectsData = [
     //   "/assets/thumbnailRintisar2.png",
     //   "/assets/thumbnailRintisar3.png"
     // ],
-    image: "/assets/thumbnail/rintisar_thumbnail.png",
+    image: "/assets/thumbnail/rintisar_thumbnail.PNG",
     video: "/assets/demo/demo_rintisar.mp4",
     tags: ["Laravel", "PHP", "MySQL", "Flip", "OAuth", "Geolocation"],
     features: [
@@ -53,10 +53,10 @@ const projectsData = [
     description: "Laravel-based dating platform with Google login, AI-powered matchmaking, geolocation, and payment system integration via Flip.",
     fullDescription: "Diserasi is a smart dating web platform designed to help users find meaningful connections based on compatibility scoring and real-time interactions. Built with Laravel and MySQL, the platform offers Google OAuth authentication for seamless login, uses the Geolocation API to match users based on proximity, and supports Flip payment integration (QRIS and bank) for premium features. One of its core highlights is the 'Match Game' – an interactive feature that allows users to answer prompts or challenges, which contributes to the AI-based matchmaking logic. The system includes profile management, and admin moderation.",
     images: [
-      "/assets/gallery/postman_diserasi.png",
-      "/assets/gallery/admin_dashboard_diserasi.png",
+      "/assets/gallery/postman_diserasi.PNG",
+      "/assets/gallery/admin_dashboard_diserasi.PNG",
     ],
-    image: "/assets/thumbnail/diserasi_thumbnail.png",
+    image: "/assets/thumbnail/diserasi_thumbnail.PNG",
     video: "/assets/demo/demo_diserasi.mp4",
     tags: ["Laravel", "PHP", "MySQL", "AI", "OAuth", "Geolocation", "Flip"],
     features: [
@@ -78,10 +78,10 @@ const projectsData = [
     description: "An attendance system integrating QR check-in via IoT devices and storing data in real-time to the server.",
     fullDescription: "JTV's attendance system uses IoT and QR technology to record presence digitally. The project consists of a Flutter frontend, Express.js backend, and MongoDB database, enabling real-time check-in tracking through QR scanning.",
     images: [
-      "/assets/gallery/postman_jtv.png",
-      "/assets/gallery/database_jtv.png"
+      "/assets/gallery/postman_jtv.PNG",
+      "/assets/gallery/database_jtv.PNG"
     ],
-    image: "/assets/thumbnail/jtv_thumbnail.png",
+    image: "/assets/thumbnail/jtv_thumbnail.PNG",
     video: "/assets/demo/demo_jtv.mp4",
     tags: ["Express.js", "Flutter", "MySQL", "IoT"],
     features: [
