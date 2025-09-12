@@ -96,7 +96,30 @@ const projectsData = [
     year: 2025
   },
   {
-    id: 5,
+    "id": 5,
+    "title": "Inventory Management System",
+    "description": "Sistem manajemen inventaris berbasis web untuk melacak stok dan mengoptimalkan manajemen rantai pasokan. Dibuat dengan React dan Node.js.",
+    "fullDescription": "Sistem ini menyediakan antarmuka terpusat untuk mengelola produk, melacak jumlah stok, dan memproses pesanan masuk dan keluar. Ini menampilkan dashboard interaktif, peringatan stok, dan laporan, meningkatkan efisiensi operasional.",
+    "images": [
+      "/assets/gallery/database_inventory_management.PNG",
+      "/assets/gallery/postman_inventory_management.PNG"
+    ],
+    "image": "/assets/thumbnail/inventory-management-thumbnail.PNG",
+    "video": "/assets/demo/demo_inventory_management.mp4",
+    "tags": ["React", "Node.js", "MongoDB", "Express.js", "REST API"],
+    "features": [
+      "Dashboard real-time untuk pemantauan stok.",
+      "Fitur CRUD (Create, Read, Update, Delete) untuk produk.",
+      "Peringatan stok minimum.",
+      "Laporan inventaris yang dapat disesuaikan.",
+      "Manajemen pengguna dan peran."
+    ],
+    "technologies": "React (frontend), Node.js (backend), Express.js (backend), MySQL (database).",
+    "codeLink": "https://github.com/your-username/inventory-management-system",
+    "year": 2025
+  },
+  {
+    id: 6,
     title: "Portfolio Website",
     description: "A React.js-powered personal website designed to showcase projects, skills, and work experience.",
     fullDescription: "A modern and visually appealing portfolio website showcasing projects, skills, and achievements. Built with React.js, it provides a seamless user experience with interactive elements.",
@@ -118,7 +141,7 @@ const projectsData = [
     year: 2025
   },
   {
-    id: 6,
+    id: 7,
     title: "Parking Gate Monitoring Website",
     description: "A Laravel-based web application integrated with IoT devices to monitor parking gate activity in real-time.",
     fullDescription: "A smart parking management system that integrates IoT-based RFID technology to track vehicle and personnel movement in and out of the facility. Provides real-time monitoring and logging capabilities for security and efficiency.",
@@ -137,7 +160,7 @@ const projectsData = [
     year: 2023
   },
   {
-    id: 7,
+    id: 8,
     title: "Bootcamp Website with AI Recommendation",
     description: "A Laravel-based bootcamp management platform featuring AI-driven recommendations for personalized learning.",
     fullDescription: "An educational platform designed for tech bootcamps. It includes a catalog of courses, AI-powered course recommendations, and testimonials from previous learners.",
@@ -159,7 +182,7 @@ const projectsData = [
     year: 2023
   },
   {
-    id: 1,
+    id: 9,
     title: "Admin Website for Company Profile",
     description: "A CodeIgniter-based CRUD system that allows administrators to manage and update company profile information efficiently.",
     fullDescription: "A dynamic and user-friendly CRUD-based admin panel for managing a company's profile website. It allows administrators to easily update company details, services, team members, and other relevant information. Designed to streamline content management efficiently.",

@@ -33,29 +33,36 @@ const Projects = () => {
       tags: ["Express.js", "Flutter", "MySQL", "IoT"]
     },
     {
-      id: 5,
+      "id": 5,
+      "title": "Inventory Management System",
+      "description": "A web-based system for managing inventory, tracking stock levels, and optimizing supply chain operations. Built with React and Node.js.",
+      "image": "/assets/thumbnail/inventory-management-thumbnail.png",
+      "tags": ["React", "Node.js", "Express.js", "MySQL", "REST API"]
+    },
+    {
+      id: 6,
       title: "Portfolio Website",
       description: "A React.js-powered personal website designed to showcase projects, skills, and work experience.",
       image: "/assets/PROJECT.PNG",
       tags: ["React js", "Html", "Css"]
     },
     {
-      id: 6,
+      id: 7,
       title: "Parking Gate Monitoring Website",
       description: "A Laravel-based web application integrated with IoT devices to monitor parking gate activity in real-time.",
       image: "/assets/thumbnailDasboardSmartGate.PNG",
       tags: ["Laravel", "Firebase", "Bootstrap"]
     },
-    
+
     {
-      id: 7,
+      id: 8,
       title: "Bootcamp Website with AI Recommendation",
       description: "A Laravel-based bootcamp management platform featuring AI-driven recommendations for personalized learning.",
       image: "/assets/thumbnailBootcampWeb.PNG",
       tags: ["Laravel", "MySQL", "Bootstrap"]
     },
     {
-      id: 8,
+      id: 9,
       title: "Admin Website for Company Profile",
       description: "A CodeIgniter-based CRUD system that allows administrators to manage and update company profile information efficiently.",
       image: "/assets/thumbnailAdminPms.PNG",
