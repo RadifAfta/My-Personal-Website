@@ -115,7 +115,7 @@ const projectsData = [
       "Manajemen pengguna dan peran."
     ],
     "technologies": "React (frontend), Node.js (backend), Express.js (backend), MySQL (database).",
-    "codeLink": "https://github.com/your-username/inventory-management-system",
+    "codeLink": "https://github.com/RadifAfta/Inventory-management",
     "year": 2025
   },
   {
