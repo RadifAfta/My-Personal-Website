@@ -104,7 +104,7 @@ const projectsData = [
       "/assets/gallery/database_inventory_management.PNG",
       "/assets/gallery/postman_inventory_management.PNG"
     ],
-    "image": "/assets/thumbnail/inventory-management-thumbnail.PNG",
+    "image": "/assets/thumbnail/inventory-management-thumbnail.png",
     "video": "/assets/demo/demo_inventory_management.mp4",
     "tags": ["React", "Node.js", "MongoDB", "Express.js", "REST API"],
     "features": [
