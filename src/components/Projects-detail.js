@@ -1,4 +1,4 @@
-import { image } from 'framer-motion/client';
+// import { image } from 'framer-motion/client';
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
