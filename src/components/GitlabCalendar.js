@@ -49,11 +49,6 @@ const GitlabCalendar = ({ username, colorScheme = "dark", customTheme }) => {
   if (loading) return <div className="text-gray-400 text-sm py-4 p-4 text-center">Loading GitLab contributions...</div>;
   if (error) return <div className="text-red-400 text-sm py-4 p-4 text-center">{error}</div>;
 
-  const defaultTheme = {
-    light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-    dark: ['#1e1e24', '#39d353', '#26a641', '#006d32', '#0e4429'],
-  };
-
   // Violets/Fuchsias based on site's theme
   const fuchsiaTheme = {
     light: ['#f3e8ff', '#d8b4fe', '#c084fc', '#a855f7', '#7e22ce'],
