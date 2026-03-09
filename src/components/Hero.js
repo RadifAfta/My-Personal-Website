@@ -1,233 +1,274 @@
-  import React, { useState, useEffect } from 'react';
-  import Typewriter from 'typewriter-effect';
-  import { useSpring, animated, config } from '@react-spring/web';
+import React, { useState, useEffect, useRef } from 'react';
+import Typewriter from 'typewriter-effect';
+import { useSpring, animated, config } from '@react-spring/web';
 
-  const Hero = () => {
-    const [isVisible, setIsVisible] = useState(false);
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [hoverViewProjects, setHoverViewProjects] = useState(false);
-    const [hoverGetInTouch, setHoverGetInTouch] = useState(false);
-    
-    useEffect(() => {
-      setIsVisible(true);
-      
-      const handleMouseMove = (e) => {
-        setMousePosition({
-          x: e.clientX / window.innerWidth,
-          y: e.clientY / window.innerHeight
-        });
-      };
-      
-      window.addEventListener('mousemove', handleMouseMove);
-      return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
+const Hero = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+  const canvasRef = useRef(null);
 
-    // Animation for name and description with scaling and fade-in effect
-    const nameAnimation = useSpring({
-      opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
-      config: { tension: 250, friction: 20 },
-    });
+  useEffect(() => {
+    setIsVisible(true);
 
-    const descAnimation = useSpring({
-      opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.95)',
-      delay: 200,
-      config: { tension: 250, friction: 20 },
-    });
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 2,
+        y: (e.clientY / window.innerHeight - 0.5) * 2,
+      });
+    };
 
-    // Parallax effect for background shapes based on mouse movement
-    const bg1Animation = useSpring({
-      transform: isVisible 
-        ? `translate(${mousePosition.x * -30}px, ${mousePosition.y * -30}px) scale(1.05)`
-        : 'translate(0px, 0px) scale(1)',
-      config: config.gentle
-    });
+    const handleScroll = () => {
+      setShowScrollIndicator(window.scrollY < 80);
+    };
 
-    const bg2Animation = useSpring({
-      transform: isVisible 
-        ? `translate(${mousePosition.x * 30}px, ${mousePosition.y * 30}px) scale(1.05)`
-        : 'translate(0px, 0px) scale(1)',
-      config: config.gentle
-    });
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
-    // Subtle float animation for hero content
-    const floatAnimation = useSpring({
-      transform: isVisible ? 'translateY(-10px)' : 'translateY(0px)',
-      loop: { reverse: true },
-      config: { duration: 3000 },
-    });
+  // Interactive canvas — constellation network that reacts to mouse
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    // FIXED: Button hover animations - removed boxShadow animation which was causing issues
-    const viewProjectsAnimation = useSpring({
-      transform: hoverViewProjects ? 'scale(1.1)' : 'scale(1)',
-      config: { tension: 300, friction: 20 }
-    });
+    const ctx = canvas.getContext('2d');
+    let animationId;
+    let mouse = { x: 0, y: 0 };
+    let particles = [];
 
-    const getInTouchAnimation = useSpring({
-      transform: hoverGetInTouch ? 'scale(1.1)' : 'scale(1)',
-      config: { tension: 300, friction: 20 }
-    });
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
 
-    const ctaButtonsAnimation = useSpring({
-      opacity: isVisible ? 1 : 0,
-      transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-      delay: 400,
-      config: { tension: 250, friction: 20 },
-    });
+    // Create particles
+    const particleCount = 60;
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        radius: Math.random() * 1.5 + 0.5,
+        opacity: Math.random() * 0.5 + 0.1,
+      });
+    }
 
-    // Simple fade animation for scroll indicator
-    const scrollIndicatorAnimation = useSpring({
-      opacity: isVisible ? 0.7 : 0,
-      transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-      delay: 600,
-      config: { tension: 250, friction: 20 },
-    });
+    const handleCanvasMouseMove = (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+    window.addEventListener('mousemove', handleCanvasMouseMove);
 
-    // Particle effect
-    const particles = Array.from({ length: 20 }, (_, i) => i);
-    
-    return (
-      <section className="min-h-screen relative flex items-center justify-center px-6 overflow-hidden">
-        {/* Background gradient effect */}
-        <div className="absolute inset-0 bg-black" />
-        
-        {/* Animated background shapes with parallax */}
-        <div className="absolute inset-0 overflow-hidden">
-          <animated.div style={bg1Animation} className="absolute top-40 left-10 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl" />
-          <animated.div style={bg2Animation} className="absolute bottom-20 right-10 w-80 h-80 bg-fuchsia-600/10 rounded-full blur-3xl" />
-          
-          {/* Additional glowing orbs */}
-          <animated.div style={bg1Animation} className="absolute top-1/4 right-1/4 w-64 h-64 bg-violet-600/5 rounded-full blur-3xl" />
-          <animated.div style={bg2Animation} className="absolute bottom-1/3 left-1/4 w-72 h-72 bg-fuchsia-600/5 rounded-full blur-3xl" />
-        </div>
-        
-        {/* Floating particles */}
-        {particles.map((_, index) => {
-          const size = Math.random() * 4 + 2;
-          const opacity = Math.random() * 0.5 + 0.1;
-          const top = `${Math.random() * 100}%`;
-          const left = `${Math.random() * 100}%`;
-          const animDuration = Math.random() * 15 + 10;
-          
-          return (
-            <div 
-              key={index}
-              className="absolute bg-white rounded-full pointer-events-none"
-              style={{
-                width: `${size}px`,
-                height: `${size}px`,
-                top,
-                left,
-                opacity,
-                animation: `floatParticle ${animDuration}s infinite ease-in-out`,
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((p, i) => {
+        // Move
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Wrap around
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        if (p.y > canvas.height) p.y = 0;
+
+        // Mouse repel effect
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 150) {
+          const force = (150 - dist) / 150;
+          p.x += (dx / dist) * force * 2;
+          p.y += (dy / dist) * force * 2;
+        }
+
+        // Draw particle
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(167, 139, 250, ${p.opacity})`;
+        ctx.fill();
+
+        // Draw connections
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx2 = p.x - p2.x;
+          const dy2 = p.y - p2.y;
+          const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+
+          if (dist2 < 120) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(167, 139, 250, ${0.08 * (1 - dist2 / 120)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      });
+
+      animationId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', handleCanvasMouseMove);
+    };
+  }, []);
+
+  // Animations
+  const fadeUp1 = useSpring({
+    opacity: isVisible ? 1 : 0,
+    transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+    config: { tension: 200, friction: 24 },
+  });
+
+  const fadeUp2 = useSpring({
+    opacity: isVisible ? 1 : 0,
+    transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+    delay: 150,
+    config: { tension: 200, friction: 24 },
+  });
+
+  const fadeUp3 = useSpring({
+    opacity: isVisible ? 1 : 0,
+    transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+    delay: 300,
+    config: { tension: 200, friction: 24 },
+  });
+
+  const fadeUp4 = useSpring({
+    opacity: isVisible ? 1 : 0,
+    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+    delay: 500,
+    config: { tension: 200, friction: 24 },
+  });
+
+  // Subtle parallax on the glow orb
+  const orbAnimation = useSpring({
+    transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`,
+    config: config.gentle,
+  });
+
+  const scrollIndicatorAnim = useSpring({
+    opacity: showScrollIndicator ? 0.6 : 0,
+    transform: showScrollIndicator ? 'translateY(0)' : 'translateY(15px)',
+    config: { tension: 250, friction: 22 },
+  });
+
+  return (
+    <section className="min-h-screen relative flex items-center justify-center overflow-hidden bg-black">
+      {/* Interactive constellation canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 z-0 pointer-events-none"
+      />
+
+      {/* Glow orb — follows mouse */}
+      <animated.div
+        style={orbAnimation}
+        className="absolute w-[450px] h-[450px] bg-violet-600/10 rounded-full blur-[100px] pointer-events-none z-0"
+      />
+
+      {/* Content */}
+      <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
+
+        {/* Small greeting */}
+        <animated.p style={fadeUp1} className="text-sm tracking-[0.3em] uppercase text-violet-400 mb-6 font-medium">
+          Hello, I'm
+        </animated.p>
+
+        {/* Name with shimmer */}
+        <animated.h1 style={fadeUp2} className="text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] mb-6 relative">
+          <span className="text-white">Radif</span>
+          <br />
+          <span className="hero-shimmer bg-gradient-to-r from-violet-500 via-fuchsia-400 to-violet-500 bg-clip-text text-transparent bg-[length:200%_auto]">
+            Aftamaulana
+          </span>
+        </animated.h1>
+
+        {/* Typewriter */}
+        <animated.div style={fadeUp3} className="mb-10">
+          <div className="text-lg md:text-xl text-gray-500 font-light">
+            <Typewriter
+              options={{
+                strings: [
+                  "Fullstack Web Developer",
+                  "Laravel & React Specialist",
+                  "Building Digital Solutions",
+                ],
+                autoStart: true,
+                loop: true,
+                delay: 60,
+                deleteSpeed: 30,
               }}
             />
-          );
-        })}
-
-        {/* Main content with floating animation */}
-        <animated.div style={floatAnimation} className="container mx-auto relative text-center max-w-4xl">
-          
-          {/* Name and title container */}
-          <div className="mb-12">
-            <animated.h2 style={nameAnimation} className="text-6xl md:text-7xl font-black mb-8 relative">
-              Radif
-              <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent"> Aftamaulana</span>
-              {/* Decorative elements */}
-              <div className="absolute -top-8 -left-8 w-16 h-16 border-t-2 border-l-2 border-violet-500/30 rounded-tl-lg opacity-70" />
-              <div className="absolute -bottom-8 -right-8 w-16 h-16 border-b-2 border-r-2 border-fuchsia-500/30 rounded-br-lg opacity-70" />
-            </animated.h2>
-
-            {/* Typing effect for description with enhanced styling */}
-            <animated.div style={descAnimation} className="relative">
-              <div className="text-2xl md:text-3xl font-light text-gray-300 tracking-wide">
-                <Typewriter
-                  options={{
-                    strings: [
-                      "Web Developer",
-                      "Front-end and Back-end Developer",
-                      "Creating Digital Experiences",
-                      "Turning Ideas into Reality"
-                    ],
-                    autoStart: true,
-                    loop: true,
-                    delay: 75,
-                    deleteSpeed: 30,
-                  }}
-                />
-              </div>
-              {/* Subtle underline effect */}
-              <div className="h-0.5 w-48 bg-gradient-to-r from-violet-600/50 to-fuchsia-500/50 mx-auto mt-4 rounded-full" />
-            </animated.div>
-          </div>
-
-          {/* CTA Buttons with enhanced hover effects - using CSS transitions instead of react-spring for the shadow */}
-          <animated.div style={ctaButtonsAnimation} className="flex flex-col md:flex-row items-center justify-center gap-6 mt-12">
-            <animated.a 
-              href="#projects" 
-              style={viewProjectsAnimation}
-              onMouseEnter={() => setHoverViewProjects(true)}
-              onMouseLeave={() => setHoverViewProjects(false)}
-              className="group relative inline-flex items-center gap-2 px-8 py-4 text-xl md:text-2xl bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-violet-600/30"
-            >
-              <span className="relative z-10">View Projects</span>
-              <svg 
-                className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-2" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-              {/* Animated glow effect */}
-              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-violet-600 to-fuchsia-500 opacity-0 group-hover:opacity-50 blur-lg transition-opacity duration-300" />
-            </animated.a>
-
-            <animated.a 
-              href="#contact" 
-              style={getInTouchAnimation}
-              onMouseEnter={() => setHoverGetInTouch(true)}
-              onMouseLeave={() => setHoverGetInTouch(false)}
-              className="group relative inline-flex items-center gap-2 px-8 py-4 text-xl md:text-2xl border border-white/20 rounded-lg overflow-hidden transition-all duration-300 bg-black/40 backdrop-blur-lg hover:shadow-lg hover:shadow-fuchsia-600/30"
-            >
-              <span className="relative z-10">Get in Touch</span>
-              <svg 
-                className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-2" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-              {/* Animated hover border effect */}
-              <div className="absolute inset-0 -z-10 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-violet-600 to-fuchsia-500 transition-opacity duration-300" />
-            </animated.a>
-          </animated.div>
-        </animated.div>
-        
-        {/* Repositioned Scroll indicator with fixed animation */}
-        <animated.div 
-          style={scrollIndicatorAnimation} 
-          className="fixed bottom-8 right-8 flex flex-col items-center hover:opacity-100 transition-opacity cursor-pointer z-20"
-        >
-          <span className="text-sm text-gray-400 mb-2">Scroll Down</span>
-          <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center p-1">
-            <div className="w-1.5 h-3 bg-gray-400 rounded-full animate-bounce" />
           </div>
         </animated.div>
-        
-        {/* Add keyframes for floating particles */}
-        <style jsx>{`
-          @keyframes floatParticle {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-100px) translateX(50px); }
-            50% { transform: translateY(-50px) translateX(100px); }
-            75% { transform: translateY(100px) translateX(50px); }
-          }
-        `}</style>
-      </section>
-    );
-  };
 
-  export default Hero;
+        {/* Buttons */}
+        <animated.div style={fadeUp4} className="flex flex-wrap items-center justify-center gap-4">
+          <a
+            href="#projects"
+            className="group px-7 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/30 hover:scale-105"
+          >
+            View Projects
+            <span className="inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
+          <a
+            href="/Radif_Aftamaulana_CV.pdf"
+            target="_blank"
+            download="Radif_Aftamaulana_CV.pdf"
+            className="group px-7 py-3 border border-violet-500/30 bg-violet-500/10 rounded-full text-violet-300 font-medium transition-all duration-300 hover:border-violet-500 hover:text-white hover:bg-violet-500/20 hover:scale-105 backdrop-blur-sm flex items-center gap-2"
+          >
+            Download CV
+            <svg className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </a>
+          <a
+            href="#contact"
+            className="group px-7 py-3 border border-white/15 rounded-full text-gray-300 font-medium transition-all duration-300 hover:border-white/30 hover:text-white hover:scale-105 bg-white/[0.03] backdrop-blur-sm"
+          >
+            Get in Touch
+            <span className="inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
+        </animated.div>
+      </div>
+
+      {/* Scroll indicator */}
+      <animated.div
+        style={scrollIndicatorAnim}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
+      >
+        <span className="text-xs tracking-widest uppercase text-gray-600 mb-2">Scroll</span>
+        <div className="w-5 h-8 border border-gray-600 rounded-full flex justify-center pt-1.5">
+          <div className="w-1 h-2 bg-gray-500 rounded-full animate-bounce" />
+        </div>
+      </animated.div>
+
+      {/* Shimmer animation */}
+      <style jsx>{`
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        .hero-shimmer {
+          animation: shimmer 4s ease-in-out infinite;
+        }
+      `}</style>
+    </section>
+  );
+};
+
+export default Hero;

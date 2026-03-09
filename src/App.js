@@ -9,6 +9,9 @@ import ProjectDetail from './components/Projects-detail';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import Preloader from './components/Preloader';
+import CustomCursor from './components/CustomCursor';
+import ScrollProgress from './components/ScrollProgress';
 
 const MainLayout = () => {
   return (
@@ -26,8 +29,11 @@ const MainLayout = () => {
 const App = () => {
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-r from-blue-900 via-gray-800 to-gray-900 text-white font-sans">
-      <ScrollToTop />
+      <Preloader />
+      <CustomCursor />
+      <ScrollProgress />
+      <div className="min-h-screen bg-black text-white font-sans selection:bg-violet-600/30">
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<MainLayout />} />
           <Route path="/project/:id" element={
