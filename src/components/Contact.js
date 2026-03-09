@@ -1,6 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Contact = () => {
+  const [result, setResult] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setResult("");
+
+    const formData = new FormData(event.target);
+    // Ganti 'YOUR_ACCESS_KEY_HERE' dengan access key dari Web3Forms (https://web3forms.com/)
+    formData.append("access_key", "b5f1622e-cc8d-4758-b338-96de776b9949");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setResult("Message sent successfully!");
+        event.target.reset();
+      } else {
+        setResult("Error: " + data.message);
+      }
+    } catch (error) {
+      setResult("An error occurred. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setResult(""), 5000);
+    }
+  };
+
   return (
     <section id="contact" className="relative py-24 overflow-hidden bg-black">
       {/* Background Elements - Sama dengan section sebelumnya */}
@@ -39,12 +73,14 @@ const Contact = () => {
             <div className="absolute bottom-0 right-0 w-20 h-1 bg-gradient-to-l from-fuchsia-500 to-transparent rounded-full"></div>
             <div className="absolute bottom-0 right-0 w-1 h-20 bg-gradient-to-t from-fuchsia-500 to-transparent rounded-full"></div>
 
-            <form className="space-y-6">
+            <form onSubmit={onSubmit} className="space-y-6">
               <div className="space-y-1">
                 <label htmlFor="name" className="text-sm font-medium text-gray-300">Full Name</label>
                 <input
                   type="text"
                   id="name"
+                  name="name"
+                  required
                   placeholder="Enter your name"
                   className="w-full px-4 py-3 bg-black/30 rounded-lg border border-white/10 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300 text-white placeholder-gray-500 outline-none"
                 />
@@ -55,6 +91,8 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
+                  required
                   placeholder="Enter your email"
                   className="w-full px-4 py-3 bg-black/30 rounded-lg border border-white/10 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300 text-white placeholder-gray-500 outline-none"
                 />
@@ -65,6 +103,7 @@ const Contact = () => {
                 <input
                   type="text"
                   id="subject"
+                  name="subject"
                   placeholder="What's this about?"
                   className="w-full px-4 py-3 bg-black/30 rounded-lg border border-white/10 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300 text-white placeholder-gray-500 outline-none"
                 />
@@ -74,6 +113,8 @@ const Contact = () => {
                 <label htmlFor="message" className="text-sm font-medium text-gray-300">Message</label>
                 <textarea
                   id="message"
+                  name="message"
+                  required
                   rows="5"
                   placeholder="Your message here..."
                   className="w-full px-4 py-3 bg-black/30 rounded-lg border border-white/10 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all duration-300 text-white placeholder-gray-500 outline-none resize-none"
@@ -82,21 +123,30 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="group w-full py-3 px-6 bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-lg font-medium text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] hover:scale-[1.02] relative overflow-hidden"
+                disabled={isSubmitting}
+                className={`group w-full py-3 px-6 bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-lg font-medium text-white transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] hover:scale-[1.02] relative overflow-hidden ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
-                  Send Message
-                  <svg
-                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  {!isSubmitting && (
+                    <svg
+                      className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  )}
                 </span>
                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
               </button>
+
+              {result && (
+                <div className={`mt-4 p-3 rounded text-center text-sm ${result.includes("successfully") ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}`}>
+                  {result}
+                </div>
+              )}
             </form>
           </div>
 

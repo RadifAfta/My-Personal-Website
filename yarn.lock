@@ -8035,7 +8035,7 @@ raw-body@2.5.2:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-activity-calendar@^3.0.6:
+react-activity-calendar@^3.0.6, react-activity-calendar@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/react-activity-calendar/-/react-activity-calendar-3.1.1.tgz"
   integrity sha512-YvHNS4anlW3Xy0fxOU2ZTWrJkOt0ALxX8IfgDRg6jr/vgYsbh//4djf2c7CPhYNROh+5oYZzR0EJaPbrFUj2tA==
