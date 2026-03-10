@@ -480,6 +480,7 @@ const ProjectDetail = () => {
                 </p>
               </div>
             </div>
+            {project.images && project.images.length > 0 && (
             <div>
               <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
                 <span className="mr-2">Project Gallery</span>
@@ -487,7 +488,7 @@ const ProjectDetail = () => {
               </h2>
               <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {project.images && project.images.map((image, idx) => (
+                  {project.images.map((image, idx) => (
                     <div
                       key={idx}
                       className="relative group cursor-pointer"
@@ -508,6 +509,7 @@ const ProjectDetail = () => {
                 </div>
               </div>
             </div>
+            )}
             {/* Image Modal */}
             {showImageModal && (
               <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -531,7 +533,7 @@ const ProjectDetail = () => {
           </div>
 
           {/* Right Sidebar */}
-          <div className="space-y-8">
+          <div className="space-y-8 lg:sticky lg:top-24 lg:self-start">
             <div>
               <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
                 <span className="mr-2">Project Info</span>
@@ -605,7 +607,7 @@ const ProjectDetail = () => {
               <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
                 <p className="text-gray-300 mb-4">Interested in learning more about this project or exploring collaboration opportunities?</p>
                 <Link
-                  to="/contact"
+                  to="/#contact"
                   className="flex items-center justify-center gap-2 w-full py-3.5 bg-white/5 border border-white/10 rounded-xl transition-all hover:bg-violet-950/50 hover:border-violet-500/30"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
