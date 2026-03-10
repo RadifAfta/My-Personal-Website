@@ -227,9 +227,9 @@ const Hero = () => {
             <span className="inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-1">→</span>
           </a>
           <a
-            href="/Radif_Aftamaulana_CV.pdf"
+            href="../assets/CV/CV_Muhammad Radif A_English.pdf"
             target="_blank"
-            download="Radif_Aftamaulana_CV.pdf"
+            download="CV_Muhammad Radif A_English.pdf"
             className="group px-7 py-3 border border-violet-500/30 bg-violet-500/10 rounded-full text-violet-300 font-medium transition-all duration-300 hover:border-violet-500 hover:text-white hover:bg-violet-500/20 hover:scale-105 backdrop-blur-sm flex items-center gap-2"
           >
             Download CV
