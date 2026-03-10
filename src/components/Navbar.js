@@ -155,9 +155,9 @@ const Navbar = () => {
           >
             <h1 className="text-3xl font-black tracking-tighter">
               <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
-                Dief
+                radif
               </span>
-              <span className="text-white ml-1">.dev</span>
+              <span className="text-white ml-1">.io</span>
             </h1>
           </Link>
 

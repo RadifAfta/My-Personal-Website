@@ -6,28 +6,39 @@ const About = () => {
   const skills = [
     { name: 'Laravel', level: 90, icon: '🔴' },
     { name: 'PHP', level: 85, icon: '🐘' },
-    { name: 'MySQL', level: 85, icon: '🗄️' },
+    { name: 'Go (Golang)', level: 60, icon: '🐹' },
+    { name: 'Node.js', level: 82, icon: '🟢' },
+    { name: 'MySQL / PostgreSQL', level: 85, icon: '🗄️' },
+    { name: 'Alibaba & AWS Cloud', level: 75, icon: '☁️' },
+    { name: 'UiPath (RPA)', level: 65, icon: '🤖' },
+    { name: 'REST API', level: 88, icon: '🔗' },
+    { name: 'Docker', level: 60, icon: '🐳' },
+    { name: 'YOLOv5 (AI)', level: 60, icon: '🎯' },
     { name: 'React.js', level: 75, icon: '⚛️' },
     { name: 'JavaScript', level: 80, icon: '🟨' },
-    { name: 'REST API', level: 88, icon: '🔗' },
-    { name: 'Python / Flask', level: 70, icon: '🐍' },
-    { name: 'HTML & CSS', level: 90, icon: '🎨' },
   ];
 
   const experiences = [
     {
-      company: 'PT Pelindo Marine Service',
-      role: 'Web Developer Intern',
-      period: '2024',
-      desc: 'Developed CRUD APIs, integrated payment systems, and optimized dashboard applications.',
-      tags: ['Laravel', 'MySQL', 'REST API'],
+      company: 'PT Multi Spunindo Jaya Tbk',
+      role: 'IT Programmer Intern',
+      period: '2025 - 2026',
+      desc: 'Developed the "TSI Inventory" system for real-time stock tracking and maintained internal platforms (MSJ Magang & MSJ Document). Created UiPath RPA workflows for automated SAP document processing and managed data entry for Material Master and Bill of Materials.',
+      tags: ['Laravel', 'PHP', 'UiPath', 'SAP', 'MySQL'],
     },
     {
       company: 'Involuntir',
-      role: 'Fullstack Developer Intern',
-      period: '2024',
-      desc: 'Built fullstack features, optimized backend systems, and collaborated with cross-functional teams.',
-      tags: ['Laravel', 'React', 'MySQL'],
+      role: 'Backend Developer Intern',
+      period: '2025',
+      desc: 'Built the "Rintisar" platform hub, focusing on backend optimization, developing secure CRUD APIs, and integrating Flip payment gateway for automated reservation transactions.',
+      tags: ['Laravel', 'MySQL', 'Flip API', 'REST API'],
+    },
+    {
+      company: 'PT Pelindo Marine Service',
+      role: 'Software Engineering Intern',
+      period: '2024 - 2025',
+      desc: 'Engineered an AI-based computer vision system for PPE detection using YOLOv5 with 87% accuracy. Conducted website performance tuning and authored technical documentation for internal applications.',
+      tags: ['YOLOv5', 'Flask', 'Python', 'CodeIgniter'],
     },
   ];
 
@@ -129,10 +140,10 @@ const About = () => {
             {/* About Text */}
             <div className="space-y-5 text-gray-300 mb-10">
               <p className="text-lg leading-relaxed pl-4 border-l-2 border-violet-500/30">
-                I am a final-year Information Technology student at Telkom University with a GPA of 3.83. I specialize in backend and fullstack web development using technologies like Laravel, MySQL, and React.js.
+                I am a high-achieving Information Technology graduate from Telkom University with a GPA of 3.83. As a certified Alibaba Cloud Associate and AWS Cloud Practitioner, I specialize in building robust backend architectures and scalable cloud solutions using Laravel, Node.js, and Go.
               </p>
               <p className="text-lg leading-relaxed pl-4 border-l-2 border-fuchsia-500/30">
-                I have completed internships at PT Pelindo Marine Service and Involuntir, where I developed CRUD APIs, integrated payment systems, and optimized dashboard applications.
+                During my internship as an IT Programmer at PT Multi Spunindo Jaya, I engineered mission-critical systems like the TSI Inventory to optimize real-time stock tracking. I also have a proven track record in developing AI-driven monitoring tools and integrating secure payment gateways in previous roles.
               </p>
             </div>
 

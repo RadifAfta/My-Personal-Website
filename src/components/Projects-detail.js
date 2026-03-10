@@ -6,125 +6,150 @@ import { useParams, Link } from 'react-router-dom';
 const projectsData = [
   {
     id: 1,
+    title: "TSI Inventory – Warehouse Management System",
+    description: "Industrial-grade inventory system for PT Multi Spunindo Jaya Tbk, optimizing real-time stock tracking and complex reporting.",
+    fullDescription: "Developed during my internship at PT Multi Spunindo Jaya Tbk, this system solves critical stock tracking issues for industrial manufacturing. It manages thousands of items, handles flexible stock opname sessions, and automates management reporting using a robust Service Layer pattern.",
+    image: "/assets/thumbnail/tsi_inventory_thumbnail.PNG",
+    tags: ["Laravel", "PHP", "MySQL", "Service Layer"],
+    video: "/assets/demo/demo_tsi_inventory.mp4",
+    features: [
+      "Real-time Stock Tracking & Monitoring",
+      "Flexible Stock Opname Logic (High Frequency)",
+      "Automated Transaction Reporting",
+      "Minimal Stock Threshold Alerts"
+    ],
+    technologies: "Built with Laravel 10 and MySQL. I implemented a Service Layer architecture to ensure the backend is scalable, maintainable, and separates business logic from controllers.",
+    codeLink: "https://github.com/radifafta/tsi-inventory-internal",
+    year: 2026
+  },
+  {
+    id: 2,
+    title: "Lifepath – AI Personal Assistant Bot",
+    description: "Automated personal assistant bot integrated with Telegram, deployed on GCP with Supabase for data persistence.",
+    fullDescription: "Lifepath is an AI-powered assistant deployed on Google Cloud Platform (GCP). It utilizes Node.js for backend logic, Supabase for cloud database management, and PM2 for ensuring 24/7 continuous uptime on a Linux server.",
+    image: "/assets/thumbnail/lifepath_thumbnail.PNG",
+    tags: ["Node.js", "GCP", "Supabase", "PM2", "Telegram API"],
+    video: "/assets/demo/demo_lifepath.mp4",
+    features: [
+      "24/7 Cloud Deployment on GCP",
+      "Automated Task Scheduling & Reminders",
+      "Secure Data Storage with Supabase",
+      "Real-time Telegram API Integration"
+    ],
+    technologies: "Developed with Node.js and Express.js. Data persistence is handled by Supabase (PostgreSQL), and the bot is managed using PM2 on a GCP Compute Engine instance.",
+    codeLink: "https://github.com/radifafta/lifepath-bot",
+    year: 2026
+  },
+  {
+    id: 3,
     title: "Dashboard for Monitoring PPE Violation Detection",
-    description: "A real-time dashboard that monitors PPE violations using YOLOv5 and CCTV integration, automatically updating detected incidents and providing risk profiling. Built with Flask (Python) for efficient processing.",
-    fullDescription: "This project is a real-time monitoring dashboard designed to detect Personal Protective Equipment (PPE) violations using YOLOv5 and CCTV integration. The system automatically captures and logs violations when workers are detected without proper safety gear, such as helmets or vests. The dashboard provides live updates, risk profiling, and automated alerts to improve workplace safety.",
+    description: "AI-based real-time monitoring dashboard detecting safety violations using YOLOv5 and CCTV integration.",
+    fullDescription: "This project is a real-time monitoring dashboard designed to detect Personal Protective Equipment (PPE) violations using YOLOv5 and CCTV integration. The system automatically captures and logs violations when workers are detected without proper safety gear.",
     image: "/assets/thumbnailApdDashboard.PNG",
-    tags: ["Flask", "Python", "css", "html"],
+    tags: ["Flask", "Python", "YOLOv5", "Computer Vision"],
     video: "/assets/DemoApdDashboard.mp4",
     features: [
-      "Real - time Violation Detection: When a violation is detected via CCTV and YOLOv5, the captured image is automatically uploaded to the dashboard.",
-      "Auto - Update & Auto - Scroll: The latest violations appear at the top of the dashboard, and the system automatically scrolls to show the most recent incidents.",
-      "Risk Profile Feature: Displays a risk assessment based on the frequency and severity of PPE violations in different areas.",
-      "Violation History Log: Stores all detected violations for future reference and analysis.",
-      "User Access Management: Allows administrators to review and manage violations efficiently."
+      "Real-time AI Violation Detection (87% Accuracy)",
+      "Automatic Incident Risk Profiling",
+      "CCTV Integration & Auto-log System",
+      "Responsive Monitoring Dashboard"
     ],
-    technologies: "The backend is built using Flask (Python) for fast and efficient processing of real-time detection data. The YOLOv5 deep learning model is utilized for accurate PPE violation detection. The system is integrated with CCTV cameras, and images are processed using OpenCV. The frontend uses HTML, CSS, and JavaScript to provide an interactive and responsive user experience. ",
+    technologies: "The backend is built using Flask (Python) for fast processing. The YOLOv5 deep learning model is utilized for accurate PPE detection, integrated with CCTV via OpenCV.",
     codeLink: "https://github.com/RadifAfta/Dashboar-Monitoring-PPE-Violations",
     year: 2024
   },
   {
-    id: 2,
+    id: 4,
     title: "Rintisar – Startup Hub Booking Platform",
-    description: "A Laravel-based platform for startup founders to book meeting spaces using Flip payments (QRIS & bank), Google login, and geolocation-based search.",
-    fullDescription: "Rintisar is a digital platform designed for startup founders or aspiring entrepreneurs to easily book meeting rooms or co-working spaces in their nearby area. The system allows users to register or log in using Google OAuth, detects user location via Geolocation API, and provides location-aware space suggestions. Users can browse available spaces, view details, and make reservations with integrated Flip payment gateway that supports QRIS and bank transfers. The platform also includes profile update functionality, and secure role-based access control.",
-    // images: [
-    //   "/assets/thumbnailRintisar1.png",
-    //   "/assets/thumbnailRintisar2.png",
-    //   "/assets/thumbnailRintisar3.png"
-    // ],
+    description: "Startup founder platform for booking spaces with Flip payments, Google OAuth, and Geolocation search.",
+    fullDescription: "Rintisar is a digital platform designed for startup founders to book meeting rooms or co-working spaces. It features Google OAuth for authentication, Geolocation API for finding nearby hubs, and Flip payment integration.",
     image: "/assets/thumbnail/rintisar_thumbnail.PNG",
     video: "/assets/demo/demo_rintisar.mp4",
-    tags: ["Laravel", "PHP", "MySQL", "Flip", "OAuth", "Geolocation"],
+    tags: ["Laravel", "PHP", "Flip API", "OAuth", "Geolocation"],
     features: [
-      "Google OAuth login and registration.",
-      "User geolocation detection to show nearby startup hubs.",
-      "Reservation system with real-time availability and confirmation.",
-      "Flip payment gateway integration with QRIS and bank transfer support.",
-      "User profile editing with image uploads.",
+      "Google OAuth 2.0 Authentication",
+      "Geolocation-based Search Engine",
+      "Integrated Flip Payment (QRIS/Bank)",
+      "Real-time Reservation Management"
     ],
-    technologies: "Developed using Laravel (backend), MySQL (database), and React (frontend). Integrated Google OAuth 2.0 for authentication and HTML5 Geolocation API to get real-time user location. Payment processing is handled using Flip API, supporting both QRIS and bank transfers. Deployed on cPanel-based hosting.",
-    codeLink: "https://github.com/radifafta/rahasia",
+    technologies: "Developed using Laravel (backend), MySQL (database), and React (frontend). Payment processing is handled via Flip API, supporting QRIS and bank transfers.",
+    codeLink: "https://github.com/radifafta/rintisar-hub",
     year: 2025
   },
   {
-    id: 3,
+    id: 5,
     title: "Diserasi – AI-Powered Dating App",
-    description: "Laravel-based dating platform with Google login, AI-powered matchmaking, geolocation, and payment system integration via Flip.",
-    fullDescription: "Diserasi is a smart dating web platform designed to help users find meaningful connections based on compatibility scoring and real-time interactions. Built with Laravel and MySQL, the platform offers Google OAuth authentication for seamless login, uses the Geolocation API to match users based on proximity, and supports Flip payment integration (QRIS and bank) for premium features. One of its core highlights is the 'Match Game' – an interactive feature that allows users to answer prompts or challenges, which contributes to the AI-based matchmaking logic. The system includes profile management, and admin moderation.",
-    images: [
-      "/assets/gallery/postman_diserasi.PNG",
-      "/assets/gallery/admin_dashboard_diserasi.PNG",
-    ],
+    description: "Matchmaking platform with AI compatibility scoring, geolocation matching, and Flip payment integration.",
+    fullDescription: "Diserasi is a smart dating platform built with Laravel and MySQL. It offers Google OAuth for seamless login, proximity-based matching via Geolocation API, and premium matchmaking logic.",
     image: "/assets/thumbnail/diserasi_thumbnail.PNG",
-    video: "/assets/demo/demo_diserasi.mp4",
-    tags: ["Laravel", "PHP", "MySQL", "AI", "OAuth", "Geolocation", "Flip"],
-    features: [
-      "Google OAuth login and authentication.",
-      "Geolocation-based user suggestions for nearby matches.",
-      "AI-powered match recommendation engine.",
-      "Interactive Match Game for enhancing compatibility scoring.",
-      "Flip payment gateway integration (QRIS & bank transfer).",
-      "User profile editing and image upload.",
-      "Admin dashboard for user moderation and analytics."
+    images: [
+      "/assets/gallery/admin_dashboard_diserasi.PNG",
+      "/assets/gallery/postman_diserasi.PNG",
     ],
-    technologies: "Built using Laravel as the backend framework with MySQL database. Integrates Google OAuth 2.0 for authentication, Flip for payment processing, and AI logic to calculate compatibility scores. Geolocation API is used to detect and filter nearby matches. Frontend is styled using React, and the system is deployed on shared hosting with cPanel.",
-    codeLink: "https://github.com/radifafta/rahasia",
+    video: "/assets/demo/demo_diserasi.mp4",
+    tags: ["Laravel", "AI", "OAuth", "Flip", "Geolocation"],
+    features: [
+      "AI Compatibility Scoring Engine",
+      "Interactive Match Game Logic",
+      "Location-based User Suggestions",
+      "Premium Subscription via Flip Gateway"
+    ],
+    technologies: "Built with Laravel for the backend. Integrates Google OAuth 2.0, Flip for payments, and custom AI logic for compatibility scoring.",
+    codeLink: "https://github.com/radifafta/diserasi-app",
     year: 2025
   },
   {
-    id: 4,
+    id: 6,
     title: "JTV Attendance System – IoT Integrated",
-    description: "An attendance system integrating QR check-in via IoT devices and storing data in real-time to the server.",
-    fullDescription: "JTV's attendance system uses IoT and QR technology to record presence digitally. The project consists of a Flutter frontend, Express.js backend, and MongoDB database, enabling real-time check-in tracking through QR scanning.",
-    images: [
-      "/assets/gallery/postman_jtv.PNG",
-      "/assets/gallery/database_jtv.PNG"
-    ],
+    description: "IoT-based attendance tracking with QR check-in, Flutter mobile app, and Express.js backend.",
+    fullDescription: "A digital presence system integrating IoT and QR technology for real-time tracking. It consists of a Flutter frontend, Express.js backend, and MySQL database.",
     image: "/assets/thumbnail/jtv_thumbnail.PNG",
+    images: [
+      "/assets/gallery/database_jtv.PNG",
+      "/assets/gallery/postman_jtv.PNG",
+    ],
     video: "/assets/demo/demo_jtv.mp4",
     tags: ["Express.js", "Flutter", "MySQL", "IoT"],
     features: [
-      "QR-based check-in via IoT camera/module.",
-      "Real-time database logging.",
-      "Clean UI for mobile users (Flutter).",
-      "Express.js backend with API endpoint.",
-      "Compatible with LAN and remote setups."
+      "QR-based Check-in via IoT",
+      "Real-time Database Logging",
+      "Clean Mobile UI (Flutter)",
+      "Secure Express.js API"
     ],
-    technologies: "Flutter (frontend), Express.js (backend), MySQL (database), integrated with IoT hardware.",
+    technologies: "Flutter for mobile, Express.js for the API, and MySQL for storage, integrated with custom IoT hardware.",
     codeLink: "https://github.com/RadifAfta/backend_jtv_presensi",
     year: 2025
   },
   {
-    "id": 5,
-    "title": "Inventory Management System",
-    "description": "Sistem manajemen inventaris berbasis web untuk melacak stok dan mengoptimalkan manajemen rantai pasokan. Dibuat dengan React dan Node.js.",
-    "fullDescription": "Sistem ini menyediakan antarmuka terpusat untuk mengelola produk, melacak jumlah stok, dan memproses pesanan masuk dan keluar. Ini menampilkan dashboard interaktif, peringatan stok, dan laporan, meningkatkan efisiensi operasional.",
-    "images": [
+    id: 7,
+    title: "Inventory Management System",
+    description: "A web-based system for managing inventory, tracking stock levels, and optimizing supply chain operations. Built with React and Node.js.",
+    fullDescription: "This system provides a centralized interface for managing products, tracking stock quantities, and processing incoming and outgoing orders. It features an interactive dashboard, stock alerts, and reports, improving operational efficiency.",
+    images: [
       "/assets/gallery/database_inventory_management.PNG",
       "/assets/gallery/postman_inventory_management.PNG"
     ],
-    "image": "/assets/thumbnail/inventory-management-thumbnail.png",
-    "video": "/assets/demo/demo_inventory_management.mp4",
-    "tags": ["React", "Node.js", "MongoDB", "Express.js", "REST API"],
-    "features": [
-      "Dashboard real-time untuk pemantauan stok.",
-      "Fitur CRUD (Create, Read, Update, Delete) untuk produk.",
-      "Peringatan stok minimum.",
-      "Laporan inventaris yang dapat disesuaikan.",
-      "Manajemen pengguna dan peran."
+    image: "/assets/thumbnail/inventory-management-thumbnail.png",
+    video: "/assets/demo/demo_inventory_management.mp4",
+    tags: ["React", "Node.js", "MongoDB", "Express.js", "REST API"],
+    features: [
+      "Real-time dashboard for stock monitoring.",
+      "Full CRUD (Create, Read, Update, Delete) for products.",
+      "Minimum stock threshold alerts.",
+      "Customizable inventory reports.",
+      "User and role management."
     ],
-    "technologies": "React (frontend), Node.js (backend), Express.js (backend), MySQL (database).",
-    "codeLink": "https://github.com/RadifAfta/Inventory-management",
-    "year": 2025
+    technologies: "React (frontend), Node.js (backend), Express.js (API layer), MySQL (database).",
+    codeLink: "https://github.com/RadifAfta/Inventory-management",
+    year: 2025
   },
   {
-    id: 6,
+    id: 8,
     title: "Portfolio Website",
     description: "A React.js-powered personal website designed to showcase projects, skills, and work experience.",
     fullDescription: "A modern and visually appealing portfolio website showcasing projects, skills, and achievements. Built with React.js, it provides a seamless user experience with interactive elements.",
     image: "/assets/PROJECT.PNG",
-    video: "/assets/portoflioDemoRisa.mp4", // Video URL instead of demo link
+    video: "/assets/portoflioDemoRisa.mp4",
     tags: ["React js", "Html", "Css"],
     features: [
       "Download CV: Users can download a professional CV in PDF format.",
@@ -133,15 +158,15 @@ const projectsData = [
       "About Section: Personal biography and career highlights.",
       "Skills Showcase: Displays technical and soft skills with progress indicators.",
       "Certificates & Awards: Section highlighting certifications and professional achievements.",
-      "Project Showcase: Lists all completed projects with detailed views linked to Google Drive.",
+      "Project Showcase: Lists all completed projects with detailed views.",
       "Social Media Integration: Clickable links to LinkedIn, GitHub, and other platforms."
     ],
-    technologies: "This project is built using React.js for a dynamic and interactive frontend, with Tailwind CSS providing a modern and sleek design. For form submissions, Node.js can be integrated as the backend if needed. The website is deployed on Vercel or Netlify, ensuring fast performance and seamless updates.",
+    technologies: "Built using React.js for a dynamic frontend, with Tailwind CSS providing a modern design. Deployed on Vercel/Netlify for fast performance.",
     codeLink: "https://github.com/RadifAfta/Portofolio-Risalah",
     year: 2025
   },
   {
-    id: 7,
+    id: 9,
     title: "Parking Gate Monitoring Website",
     description: "A Laravel-based web application integrated with IoT devices to monitor parking gate activity in real-time.",
     fullDescription: "A smart parking management system that integrates IoT-based RFID technology to track vehicle and personnel movement in and out of the facility. Provides real-time monitoring and logging capabilities for security and efficiency.",
@@ -149,18 +174,18 @@ const projectsData = [
     video: "/assets/DemoDashboardSmartGate.mp4",
     tags: ["Laravel", "Firebase", "Bootstrap"],
     features: [
-      "RFID-Based Entry & Exit Monitoring: Tracks individuals using registered ID cards/tags.",
-      "User Registration & Management: Admins can register and manage RFID tags for employees and visitors.",
-      "Live Monitoring Dashboard: Displays real-time logs of who enters/exits.",
-      "Access Control & Permissions: Restricts unauthorized access based on predefined roles.",
-      "Data Logging & Export: Stores records of all entries/exits and allows exporting logs for analysis."
+      "RFID-Based Entry & Exit Monitoring.",
+      "User Registration & Management for RFID tags.",
+      "Live Monitoring Dashboard with real-time logs.",
+      "Access Control & Permissions based on roles.",
+      "Data Logging & Export for analysis."
     ],
-    technologies: "This system is powered by Laravel as the backend framework, ensuring a structured and secure architecture. The frontend is built using Bootstrap and JavaScript for an intuitive user interface. The database is handled with MySQL for efficient data storage and retrieval. The system is integrated with RFID modules (NodeMCU, Arduino, Raspberry Pi) for real-time tracking and monitoring.",
+    technologies: "Laravel (backend), Bootstrap & JavaScript (frontend), MySQL (database), integrated with RFID modules (NodeMCU, Arduino, Raspberry Pi).",
     codeLink: "https://github.com/RadifAfta/Smart-Gate-Parking-Dashboard",
     year: 2023
   },
   {
-    id: 8,
+    id: 10,
     title: "Bootcamp Website with AI Recommendation",
     description: "A Laravel-based bootcamp management platform featuring AI-driven recommendations for personalized learning.",
     fullDescription: "An educational platform designed for tech bootcamps. It includes a catalog of courses, AI-powered course recommendations, and testimonials from previous learners.",
@@ -168,37 +193,31 @@ const projectsData = [
     video: "/assets/DemoWebBootcamp.mp4",
     tags: ["Laravel", "MySQL", "Bootstrap"],
     features: [
-      "About Us Page: Provides detailed information about the company and its mission.",
-      "Courses Page: Displays all available courses with filtering options.",
-      "AI-Based Course Recommendation: Suggests courses based on user preferences and past interactions.",
-      "Student Testimonials: Showcases feedback from past students to build credibility.",
-      "Interactive Dashboard: Enables users to track enrolled courses and progress.",
-      "Secure Payment Integration: Supports online payment for course enrollment.",
-      "Admin Dashboard: Allows administrators to manage courses, users, payments, and content efficiently.",
-      "Course Payment System: Enables users to purchase and enroll in courses using various payment methods."
+      "Course catalog with filtering options.",
+      "AI-Based Course Recommendation engine.",
+      "Student Testimonials section.",
+      "Interactive Dashboard for tracking progress.",
+      "Secure Payment Integration for enrollment.",
+      "Admin Dashboard for managing courses and users.",
+      "Course Payment System with multiple methods."
     ],
-    technologies: "he backend is developed using Laravel, ensuring high performance and scalability. The frontend is built with Vue.js or React.js, providing an interactive and user-friendly experience. The database is managed with MySQL for efficient data handling. AI-based course recommendations are powered by Python (scikit-learn/TensorFlow), improving user experience with personalized learning suggestions.",
+    technologies: "Laravel (backend), MySQL (database), Bootstrap (frontend). AI recommendations powered by Python (scikit-learn/TensorFlow).",
     codeLink: "https://github.com/RadifAfta/GoldGenAcademy",
     year: 2023
   },
   {
-    id: 9,
+    id: 11,
     title: "Admin Website for Company Profile",
     description: "A CodeIgniter-based CRUD system that allows administrators to manage and update company profile information efficiently.",
-    fullDescription: "A dynamic and user-friendly CRUD-based admin panel for managing a company's profile website. It allows administrators to easily update company details, services, team members, and other relevant information. Designed to streamline content management efficiently.",
-    // images: [
-    //   "/assets/thumbnailAdminPms.PNG",
-    //   "/assets/thumbnailAdminPms.PNG",
-    //   "/assets/thumbnailAdminPms.PNG"
-    // ],
+    fullDescription: "A dynamic and user-friendly CRUD-based admin panel for managing a company's profile website. It allows administrators to easily update company details, services, team members, and other relevant information.",
     image: "/assets/thumbnailAdminPms.PNG",
     video: "/assets/AdminPmsDemo.mp4",
     tags: ["PHP", "CodeIgniter", "MySQL"],
     features: [
-      "CRUD Operations: Create, Read, Update, and Delete content for various sections such as company details, services, and team members.",
-      "Image Upload: Admins can upload and manage images for different sections.",
-      "User Authentication & Role Management: Secure access for different user roles.",
-      "Content Management System: Allows editing of content without coding knowledge."
+      "CRUD Operations for company details, services, and team members.",
+      "Image Upload and management for different sections.",
+      "User Authentication & Role Management.",
+      "Content Management System without coding knowledge."
     ],
     technologies: "Built with CodeIgniter (backend), MySQL (database), HTML/CSS/JS (frontend), deployed on Apache server.",
     codeLink: "https://github.com/radifafta/rahasia",
@@ -481,34 +500,34 @@ const ProjectDetail = () => {
               </div>
             </div>
             {project.images && project.images.length > 0 && (
-            <div>
-              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
-                <span className="mr-2">Project Gallery</span>
-                <div className="w-12 h-px bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
-              </h2>
-              <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {project.images.map((image, idx) => (
-                    <div
-                      key={idx}
-                      className="relative group cursor-pointer"
-                      onClick={() => openImageModal(image)}
-                    >
-                      <img
-                        src={image}
-                        alt={`${project.title} - Screenshot ${idx + 1}`}
-                        className="w-full h-32 object-cover rounded-lg border border-white/10 transition-all group-hover:border-violet-500/30 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all rounded-lg flex items-center justify-center">
-                        <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                        </svg>
+              <div>
+                <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
+                  <span className="mr-2">Project Gallery</span>
+                  <div className="w-12 h-px bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
+                </h2>
+                <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {project.images.map((image, idx) => (
+                      <div
+                        key={idx}
+                        className="relative group cursor-pointer"
+                        onClick={() => openImageModal(image)}
+                      >
+                        <img
+                          src={image}
+                          alt={`${project.title} - Screenshot ${idx + 1}`}
+                          className="w-full h-32 object-cover rounded-lg border border-white/10 transition-all group-hover:border-violet-500/30 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all rounded-lg flex items-center justify-center">
+                          <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                          </svg>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
             )}
             {/* Image Modal */}
             {showImageModal && (

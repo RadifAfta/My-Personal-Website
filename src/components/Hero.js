@@ -203,9 +203,10 @@ const Hero = () => {
             <Typewriter
               options={{
                 strings: [
-                  "Fullstack Web Developer",
-                  "Laravel & React Specialist",
-                  "Building Digital Solutions",
+                  "Backend Software Engineer",
+                  "Certified Cloud Associate",
+                  "Laravel, Node.js, & Go Developer",
+                  "Building Scalable Backend Systems",
                 ],
                 autoStart: true,
                 loop: true,
