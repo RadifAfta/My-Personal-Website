@@ -6,7 +6,9 @@ const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showScrollIndicator, setShowScrollIndicator] = useState(true);
+  const [showCvDropdown, setShowCvDropdown] = useState(false);
   const canvasRef = useRef(null);
+  const cvDropdownRef = useRef(null);
 
   useEffect(() => {
     setIsVisible(true);
@@ -24,9 +26,19 @@ const Hero = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
+
+    // Close CV dropdown on click outside
+    const handleClickOutside = (e) => {
+      if (cvDropdownRef.current && !cvDropdownRef.current.contains(e.target)) {
+        setShowCvDropdown(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -226,17 +238,55 @@ const Hero = () => {
             View Projects
             <span className="inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-1">→</span>
           </a>
-          <a
-            href="../assets/CV/CV_Muhammad Radif A_English.pdf"
-            target="_blank"
-            download="CV_Muhammad Radif A_English.pdf"
-            className="group px-7 py-3 border border-violet-500/30 bg-violet-500/10 rounded-full text-violet-300 font-medium transition-all duration-300 hover:border-violet-500 hover:text-white hover:bg-violet-500/20 hover:scale-105 backdrop-blur-sm flex items-center gap-2"
-          >
-            Download CV
-            <svg className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-            </svg>
-          </a>
+          <div className="relative" ref={cvDropdownRef}>
+            <button
+              onClick={() => setShowCvDropdown(!showCvDropdown)}
+              className="group px-7 py-3 border border-violet-500/30 bg-violet-500/10 rounded-full text-violet-300 font-medium transition-all duration-300 hover:border-violet-500 hover:text-white hover:bg-violet-500/20 hover:scale-105 backdrop-blur-sm flex items-center gap-2"
+            >
+              Download CV
+              <svg className={`w-4 h-4 transition-transform duration-300 ${showCvDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {/* CV Language Dropdown */}
+            {showCvDropdown && (
+              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-52 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl shadow-violet-950/50 overflow-hidden z-50 animate-fade-in">
+                <a
+                  href="/assets/CV/CV_Muhammad Radif A_English.pdf"
+                  target="_blank"
+                  download="CV_Muhammad Radif A_English.pdf"
+                  onClick={() => setShowCvDropdown(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-violet-500/20 hover:text-white transition-all duration-200 border-b border-white/5"
+                >
+                  <span className="w-8 h-8 rounded-full bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-xs font-bold text-violet-300">EN</span>
+                  <div>
+                    <p className="font-medium">English</p>
+                    <p className="text-xs text-gray-500">International Version</p>
+                  </div>
+                  <svg className="w-4 h-4 ml-auto opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                </a>
+                <a
+                  href="/assets/CV/CV_Muhammad Radif A_Indonesia.pdf"
+                  target="_blank"
+                  download="CV_Muhammad Radif A_Indonesia.pdf"
+                  onClick={() => setShowCvDropdown(false)}
+                  className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-violet-500/20 hover:text-white transition-all duration-200"
+                >
+                  <span className="w-8 h-8 rounded-full bg-fuchsia-500/20 border border-fuchsia-500/30 flex items-center justify-center text-xs font-bold text-fuchsia-300">ID</span>
+                  <div>
+                    <p className="font-medium">Indonesia</p>
+                    <p className="text-xs text-gray-500">Versi Bahasa Indonesia</p>
+                  </div>
+                  <svg className="w-4 h-4 ml-auto opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                </a>
+              </div>
+            )}
+          </div>
           <a
             href="#contact"
             className="group px-7 py-3 border border-white/15 rounded-full text-gray-300 font-medium transition-all duration-300 hover:border-white/30 hover:text-white hover:scale-105 bg-white/[0.03] backdrop-blur-sm"
