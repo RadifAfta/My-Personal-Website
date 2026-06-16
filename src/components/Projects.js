@@ -9,7 +9,7 @@ const Projects = () => {
       title: "TSI Inventory – Warehouse Management System",
       description: "Industrial-grade inventory system for PT Multi Spunindo Jaya Tbk, optimizing real-time stock tracking and complex reporting.",
       fullDescription: "Developed during my internship at PT Multi Spunindo Jaya Tbk, this system solves critical stock tracking issues for industrial manufacturing. It manages thousands of items, handles flexible stock opname sessions, and automates management reporting using a robust Service Layer pattern.",
-      image: "/assets/thumbnail/tsi_inventory_thumbnail.PNG",
+      image: "/assets/thumbnail/tsiinventory-thumbnail.PNG",
       tags: ["Laravel", "PHP", "MySQL", "Service Layer"],
       category: "Laravel",
       features: [
@@ -26,7 +26,7 @@ const Projects = () => {
       title: "Lifepath – AI Personal Assistant Bot",
       description: "Automated personal assistant bot integrated with Telegram, deployed on GCP with Supabase for data persistence.",
       fullDescription: "Lifepath is an AI-powered assistant deployed on Google Cloud Platform (GCP). It utilizes Node.js for backend logic, Supabase for cloud database management, and PM2 for ensuring 24/7 continuous uptime on a Linux server.",
-      image: "/assets/thumbnail/lifepath_thumbnail.PNG",
+      image: "/assets/thumbnail/lifepath-thumbnail.jpg",
       tags: ["Node.js", "GCP", "Supabase", "PM2", "Telegram API"],
       category: "Other",
       features: [
