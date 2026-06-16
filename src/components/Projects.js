@@ -9,7 +9,7 @@ const Projects = () => {
       title: "TSI Inventory – Warehouse Management System",
       description: "Industrial-grade inventory system for PT Multi Spunindo Jaya Tbk, optimizing real-time stock tracking and complex reporting.",
       fullDescription: "Developed during my internship at PT Multi Spunindo Jaya Tbk, this system solves critical stock tracking issues for industrial manufacturing. It manages thousands of items, handles flexible stock opname sessions, and automates management reporting using a robust Service Layer pattern.",
-      image: "/assets/thumbnail/tsiinventory-thumbnail.PNG",
+      image: "/assets/thumbnail/tsiinventory-thumbnail.png",
       tags: ["Laravel", "PHP", "MySQL", "Service Layer"],
       category: "Laravel",
       features: [
