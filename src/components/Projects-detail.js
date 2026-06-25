@@ -5,11 +5,29 @@ import { useParams, Link } from 'react-router-dom';
 // Sample project data - in a real application, you would fetch this from your API or database
 const projectsData = [
   {
+    id: 12,
+    title: "Amora MES – Manufacturing Execution System",
+    description: "Enterprise MES built with Laravel, Alpine.js, and Docker, automating workflow tracking on private Linux NAS servers.",
+    fullDescription: "Amora MES is a proprietary, internal Manufacturing Execution System (MES) engineered to digitize and automate the entire edible bird's nest production cycle at PT Amora Walet Indonesia. The platform features end-to-end processing tracking (raw bird nest washing, quality grading, processing, and packaging), automated real-time inventory adjustments, and quality control (QC) check gates to eliminate operational manual errors and maintain compliance. Containerized using Docker, it is deployed on on-premise Linux NAS servers for local reliability and offline resilience.",
+    image: "/assets/thumbnail/awi_mes_thumbnail.jpeg",
+    tags: ["Laravel", "PHP", "Tailwind CSS", "Alpine.js", "MySQL", "Docker", "Linux", "NAS Server"],
+    features: [
+      "End-to-End Bird Nest Production Workflow Tracking",
+      "Process stages: Washing, Quality Grading, Sorting & Packaging",
+      "Real-time Inventory Control & Dynamic Stock Auditing",
+      "Quality Control Gate Checks to Minimize Human Error",
+      "Comprehensive Production Reports & Efficiency Analytics"
+    ],
+    technologies: "Designed with a robust Service Layer pattern on Laravel to isolate complex business logistics, coupled with Alpine.js and Tailwind CSS for a reactive, light-weight user interface. Database persistence is handled by a highly-optimized MySQL schema. System is containerized with Docker and deployed on local Linux NAS servers.",
+    codeLink: "https://github.com/radifafta/amora-mes-internal",
+    year: 2026
+  },
+  {
     id: 1,
     title: "TSI Inventory – Warehouse Management System",
     description: "Industrial-grade inventory system for PT Multi Spunindo Jaya Tbk, optimizing real-time stock tracking and complex reporting.",
     fullDescription: "Developed during my internship at PT Multi Spunindo Jaya Tbk, this system solves critical stock tracking issues for industrial manufacturing. It manages thousands of items, handles flexible stock opname sessions, and automates management reporting using a robust Service Layer pattern.",
-    image: "/assets/thumbnail/tsiinventory-thumbnail.PNG",
+    image: "/assets/thumbnail/tsiinventory-thumbnail.png",
     tags: ["Laravel", "PHP", "MySQL", "Service Layer"],
     video: "/assets/demo/demo_tsiinventory.mp4",
     features: [
@@ -55,7 +73,7 @@ const projectsData = [
       "Responsive Monitoring Dashboard"
     ],
     technologies: "The backend is built using Flask (Python) for fast processing. The YOLOv5 deep learning model is utilized for accurate PPE detection, integrated with CCTV via OpenCV.",
-    codeLink: "https://github.com/RadifAfta/Dashboar-Monitoring-PPE-Violations",
+    codeLink: "https://github.com/RadifAfta/Dashboard-Monitoring-PPE-Violations",
     year: 2024
   },
   {
@@ -250,11 +268,14 @@ const ProjectDetail = () => {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
+    setVideoError(false);
+    setIsVideoPlaying(false);
     // In a real app, you would fetch this data from an API
     // This simulates an API call with a timeout
     const timer = setTimeout(() => {
@@ -286,10 +307,24 @@ const ProjectDetail = () => {
     if (videoRef.current) {
       if (isVideoPlaying) {
         videoRef.current.pause();
+        setIsVideoPlaying(false);
       } else {
-        videoRef.current.play();
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              setIsVideoPlaying(true);
+              setVideoError(false);
+            })
+            .catch(error => {
+              console.error("Video playback failed:", error);
+              setVideoError(true);
+              setIsVideoPlaying(false);
+            });
+        } else {
+          setIsVideoPlaying(true);
+        }
       }
-      setIsVideoPlaying(!isVideoPlaying);
     }
   };
 
@@ -402,53 +437,68 @@ const ProjectDetail = () => {
           <p className="text-lg text-gray-300 max-w-3xl leading-relaxed">{project.description}</p>
         </div>
 
-        {/* Project Media (Video + Thumbnail) */}
-        <div className="relative w-full aspect-video mb-16 rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-violet-500/10 group">
-          {/* Thumbnail Image (shown when video not playing) */}
+        {/* Project Media (Video + Thumbnail or Just Image) */}
+        <div className="relative w-full aspect-video mb-16 rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-violet-500/10 group bg-black">
+          {/* Thumbnail Image */}
           <img
             src={project.image || `/assets/projects/project-${project.id}.jpg`}
             alt={project.title}
-            className={`w-full h-full object-cover transition-opacity duration-500 ${isVideoPlaying ? 'opacity-0' : 'opacity-100'} absolute inset-0`}
+            className={`w-full h-full object-contain transition-opacity duration-500 ${isVideoPlaying ? 'opacity-0' : 'opacity-100'} absolute inset-0`}
           />
 
-          {/* Video Player - Added muted attribute */}
-          <video
-            ref={videoRef}
-            src={project.video}
-            className={`w-full h-full object-cover transition-opacity duration-500 ${isVideoPlaying ? 'opacity-100' : 'opacity-0'}`}
-            onEnded={() => setIsVideoPlaying(false)}
-            onClick={toggleVideo}
-            muted // Add muted attribute to remove audio
-          />
+          {project.video && !videoError ? (
+            <>
+              {/* Video Player - Changed from object-cover to object-contain to prevent cropping */}
+              <video
+                ref={videoRef}
+                src={project.video}
+                className={`w-full h-full object-contain transition-opacity duration-500 ${isVideoPlaying ? 'opacity-100' : 'opacity-0'} absolute inset-0`}
+                onEnded={() => setIsVideoPlaying(false)}
+                onClick={toggleVideo}
+                onError={() => setVideoError(true)}
+                muted // Add muted attribute to remove audio
+              />
 
-          {/* Video Controls Overlay */}
-          <div
-            className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-center justify-center cursor-pointer"
-            onClick={toggleVideo}
-          >
-            <button
-              className={`w-20 h-20 rounded-full bg-violet-600/80 backdrop-blur-sm flex items-center justify-center transition-transform group-hover:scale-105 ${isVideoPlaying ? 'opacity-0 hover:opacity-100' : 'opacity-100'}`}
-            >
-              {isVideoPlaying ? (
-                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                </svg>
-              ) : (
-                <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              )}
-            </button>
+              {/* Video Controls Overlay */}
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-center justify-center cursor-pointer"
+                onClick={toggleVideo}
+              >
+                <button
+                  className={`w-20 h-20 rounded-full bg-violet-600/80 backdrop-blur-sm flex items-center justify-center transition-transform group-hover:scale-105 ${isVideoPlaying ? 'opacity-0 hover:opacity-100' : 'opacity-100'}`}
+                >
+                  {isVideoPlaying ? (
+                    <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                    </svg>
+                  ) : (
+                    <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  )}
+                </button>
 
-            <div className="absolute bottom-4 left-4 right-4 flex flex-col">
-              <p className={`text-white font-medium text-lg mb-1 ${isVideoPlaying ? 'opacity-0 hover:opacity-100 transition-opacity' : 'opacity-100'}`}>
-                {project.title} - Demo Video
-              </p>
-              <p className={`text-gray-300 text-sm ${isVideoPlaying ? 'opacity-0 hover:opacity-100 transition-opacity' : 'opacity-100'}`}>
-                Click to {isVideoPlaying ? 'pause' : 'play'} demo video
-              </p>
+                <div className="absolute bottom-4 left-4 right-4 flex flex-col">
+                  <p className={`text-white font-medium text-lg mb-1 ${isVideoPlaying ? 'opacity-0 hover:opacity-100 transition-opacity' : 'opacity-100'}`}>
+                    {project.title} - Demo Video
+                  </p>
+                  <p className={`text-gray-300 text-sm ${isVideoPlaying ? 'opacity-0 hover:opacity-100 transition-opacity' : 'opacity-100'}`}>
+                    Click to {isVideoPlaying ? 'pause' : 'play'} demo video
+                  </p>
+                </div>
+              </div>
+            </>
+          ) : (
+            /* Subtle badge when there is no video or video fails to load */
+            <div className="absolute bottom-4 right-4 px-4 py-2 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-xs text-gray-300 flex items-center gap-1.5 pointer-events-none select-none">
+              <span className={`w-2 h-2 rounded-full animate-pulse ${videoError ? 'bg-red-500' : 'bg-yellow-500'}`} />
+              <span>
+                {videoError 
+                  ? "Demo Video Currently Unavailable (File Not Found or Unsupported)" 
+                  : "Preview Image (No Demo Video Available)"}
+              </span>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Project Details */}
@@ -589,15 +639,27 @@ const ProjectDetail = () => {
               </h2>
               <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
                 {/* Video control with updated text */}
-                <button
-                  onClick={toggleVideo}
-                  className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-violet-500/20 mb-4"
-                >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                  <span>{isVideoPlaying ? 'Pause Demo' : 'Play Demo'}</span>
-                </button>
+                {project.video && !videoError ? (
+                  <button
+                    onClick={toggleVideo}
+                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-violet-500/20 mb-4"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <span>{isVideoPlaying ? 'Pause Demo' : 'Play Demo'}</span>
+                  </button>
+                ) : (
+                  <button
+                    disabled
+                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-white/5 border border-white/10 text-gray-500 rounded-xl mb-4 cursor-not-allowed select-none"
+                  >
+                    <svg className="w-5 h-5 opacity-40" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <span>{videoError ? 'Video Unavailable' : 'No Video Available'}</span>
+                  </button>
+                )}
 
                 <a
                   href={project.codeLink}

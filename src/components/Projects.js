@@ -1,9 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import GitlabCalendar from './GitlabCalendar';
 
 const Projects = () => {
   const projects = [
+    {
+      id: 12,
+      title: "Amora MES – Manufacturing Execution System",
+      description: "Enterprise MES built with Laravel, Alpine.js, and Docker, automating workflow tracking on private Linux NAS servers.",
+      fullDescription: "Amora MES is an enterprise-grade Manufacturing Execution System designed specifically for PT Amora Walet Indonesia to digitize and automate their edible bird's nest production workflow. The system features end-to-end workflow tracking from raw materials washing, quality grading, to finished goods. It also implements automated inventory control and QC gate management to ensure physical stock accuracy and reduce manual errors.",
+      image: "/assets/thumbnail/awi_mes_thumbnail.jpeg",
+      tags: ["Laravel", "PHP", "Tailwind CSS", "Alpine.js", "MySQL", "Docker", "Linux", "NAS Server"],
+      category: "Laravel",
+      features: [
+        "End-to-End Bird Nest Production Workflow Tracking",
+        "Washing, Quality Grading & Finish Goods Management",
+        "Real-time Inventory & Stock Accuracy Auditing",
+        "Quality Control Gate Checks to Minimize Human Error"
+      ],
+      technologies: "Built with Laravel, MySQL, Alpine.js, and Tailwind CSS. Containerized using Docker for deployment on on-premise Linux NAS servers.",
+      year: 2026
+    },
     {
       id: 1,
       title: "TSI Inventory – Warehouse Management System",
@@ -164,14 +180,21 @@ const Projects = () => {
   const [isVisible, setIsVisible] = useState({});
   const projectRefs = useRef([]);
 
-  const allProjects = showMore ? [...projects, ...legacyProjects] : projects;
+  const allProjects = [...projects, ...legacyProjects];
   const filteredProjects = activeFilter === 'All'
-    ? allProjects
+    ? (showMore ? allProjects : allProjects.slice(0, 6))
     : allProjects.filter(p => p.category === activeFilter);
 
   const getTotalCount = (cat) => {
     const combined = [...projects, ...legacyProjects];
     return cat === 'All' ? combined.length : combined.filter(p => p.category === cat).length;
+  };
+
+  const getCategoryCount = (cat) => {
+    if (cat === 'All') {
+      return showMore ? allProjects.length : 6;
+    }
+    return getTotalCount(cat);
   };
 
   // Observer for scroll animation
@@ -251,10 +274,7 @@ const Projects = () => {
               >
                 {cat}
                 <span className={`ml-1.5 text-xs ${activeFilter === cat ? 'text-white/70' : 'text-gray-600'}`}>
-                  {showMore
-                    ? `(${getTotalCount(cat)})`
-                    : `(${cat === 'All' ? projects.length : projects.filter(p => p.category === cat).length})`
-                  }
+                  ({getCategoryCount(cat)})
                 </span>
               </button>
             ))}
@@ -347,40 +367,42 @@ const Projects = () => {
         </div>
 
         {/* See More / Show Less Button */}
-        <div className="flex justify-center mt-12">
-          <button
-            onClick={() => {
-              setShowMore(!showMore);
-              setIsVisible({});
-            }}
-            className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:border-violet-500/40 hover:bg-violet-500/5 transition-all duration-500 overflow-hidden"
-          >
-            {/* Animated background glow */}
-            <div className="absolute inset-0 bg-gradient-to-r from-violet-600/0 via-fuchsia-500/10 to-violet-600/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <span className="relative z-10 text-sm font-semibold bg-gradient-to-r from-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
-              {showMore ? 'Show Less' : `See More Projects (+${legacyProjects.length})`}
-            </span>
-            
-            <svg
-              className={`relative z-10 w-4 h-4 text-violet-400 transition-transform duration-500 ${showMore ? 'rotate-180' : 'group-hover:translate-y-0.5'}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+        {activeFilter === 'All' && (
+          <div className="flex justify-center mt-12">
+            <button
+              onClick={() => {
+                setShowMore(!showMore);
+                setIsVisible({});
+              }}
+              className="group relative inline-flex items-center gap-3 px-8 py-4 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm hover:border-violet-500/40 hover:bg-violet-500/5 transition-all duration-500 overflow-hidden"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
+              {/* Animated background glow */}
+              <div className="absolute inset-0 bg-gradient-to-r from-violet-600/0 via-fuchsia-500/10 to-violet-600/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <span className="relative z-10 text-sm font-semibold bg-gradient-to-r from-violet-300 to-fuchsia-300 bg-clip-text text-transparent">
+                {showMore ? 'Show Less' : `See More Projects (+${allProjects.length - 6})`}
+              </span>
+              
+              <svg
+                className={`relative z-10 w-4 h-4 text-violet-400 transition-transform duration-500 ${showMore ? 'rotate-180' : 'group-hover:translate-y-0.5'}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
 
-            {/* Decorative dots */}
-            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 flex gap-1 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:-translate-y-1">
-              <div className="w-1 h-1 rounded-full bg-violet-400" />
-              <div className="w-1 h-1 rounded-full bg-fuchsia-400" />
-              <div className="w-1 h-1 rounded-full bg-violet-400" />
-            </div>
-          </button>
-        </div>
+              {/* Decorative dots */}
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 flex gap-1 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:-translate-y-1">
+                <div className="w-1 h-1 rounded-full bg-violet-400" />
+                <div className="w-1 h-1 rounded-full bg-fuchsia-400" />
+                <div className="w-1 h-1 rounded-full bg-violet-400" />
+              </div>
+            </button>
+          </div>
+        )}
 
-        {/* GitHub & GitLab Activity Widget at the bottom of Projects */}
+        {/* GitHub Activity Widget at the bottom of Projects */}
         <div className="max-w-4xl mx-auto mt-20">
           <div className="p-8 rounded-2xl bg-black/40 backdrop-blur-sm border border-white/10 hover:border-violet-500/30 transition-all duration-300 shadow-xl shadow-black/50">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -389,10 +411,6 @@ const Projects = () => {
                   <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                     <title>GitHub</title>
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                  </svg>
-                  <svg className="w-6 h-6 text-[#FC6D26]" fill="currentColor" viewBox="0 0 512 512">
-                    <title>GitLab</title>
-                    <path d="M29.782 199.732 256 493.714 8.074 309.699c-6.856-5.142-9.712-13.996-7.141-21.993l28.849-87.974zm75.405-174.806c-3.142-8.854-15.709-8.854-18.851 0L29.782 199.732h150.81zM256 493.714l27.843-85.273c5.15-15.667 16.612-28.573 31.039-36.924H197.118c14.427 8.351 25.888 21.257 31.039 36.924zM482.218 199.732 256 493.714l247.926-184.015c6.855-5.142 9.711-13.996 7.141-21.993l-28.849-87.974zM406.813 24.926c-3.141-8.854-15.709-8.854-18.851 0l-56.555 174.806h150.81z" />
                   </svg>
                 </div>
                 <div>
@@ -403,10 +421,6 @@ const Projects = () => {
               <div className="flex gap-3">
                 <a href="https://github.com/RadifAfta" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-2.5 bg-violet-500/10 border border-violet-500/20 text-violet-300 rounded-lg hover:bg-violet-500/20 hover:text-white transition-all duration-300">
                   <span className="text-sm font-medium">GitHub</span>
-                  <span className="text-xs">↗</span>
-                </a>
-                <a href="https://gitlab.com/yuzucungwa" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FC6D26]/10 border border-[#FC6D26]/20 text-[#FC6D26] rounded-lg hover:bg-[#FC6D26]/20 hover:text-white transition-all duration-300">
-                  <span className="text-sm font-medium">GitLab</span>
                   <span className="text-xs">↗</span>
                 </a>
               </div>
@@ -426,18 +440,6 @@ const Projects = () => {
                     style={{ filter: 'drop-shadow(0 0 8px rgba(139, 92, 246, 0.1))' }}
                     loading="lazy"
                   />
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-[#FC6D26] font-medium mb-3 text-sm flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 512 512"><path d="M29.782 199.732 256 493.714 8.074 309.699c-6.856-5.142-9.712-13.996-7.141-21.993l28.849-87.974zm75.405-174.806c-3.142-8.854-15.709-8.854-18.851 0L29.782 199.732h150.81zM256 493.714l27.843-85.273c5.15-15.667 16.612-28.573 31.039-36.924H197.118c14.427 8.351 25.888 21.257 31.039 36.924zM482.218 199.732 256 493.714l247.926-184.015c6.855-5.142 9.711-13.996 7.141-21.993l-28.849-87.974zM406.813 24.926c-3.141-8.854-15.709-8.854-18.851 0l-56.555 174.806h150.81z" /></svg>
-                  GitLab
-                </h4>
-                <div className="w-full overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-[#FC6D26]/20 scrollbar-track-white/5 rounded-lg border border-white/5 p-4 bg-white/[0.02]">
-                  <div className="min-w-[700px]">
-                    <GitlabCalendar username="yuzucungwa" />
-                  </div>
                 </div>
               </div>
             </div>

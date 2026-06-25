@@ -1,24 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { useSpring, animated } from '@react-spring/web';
+import React, { useEffect, useRef } from 'react';
 
 const CustomCursor = () => {
-    const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
-    const [isHovering, setIsHovering] = useState(false);
-    const [isClicking, setIsClicking] = useState(false);
-    const [isVisible, setIsVisible] = useState(false);
+    const dotRef = useRef(null);
+    const ringRef = useRef(null);
 
-    // Mouse move tracking
     useEffect(() => {
+        const dot = dotRef.current;
+        const ring = ringRef.current;
+        if (!dot || !ring) return;
+
         const handleMouseMove = (e) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-            if (!isVisible) setIsVisible(true);
+            const { clientX: x, clientY: y } = e;
+            // Update positions directly on mousemove
+            dot.style.transform = `translate3d(${x - 3}px, ${y - 3}px, 0)`;
+            ring.style.transform = `translate3d(${x - 18}px, ${y - 18}px, 0)`;
         };
 
-        const handleMouseLeaveViewport = () => setIsVisible(false);
-        const handleMouseEnterViewport = () => setIsVisible(true);
+        const handleMouseLeaveViewport = () => {
+            dot.style.opacity = '0';
+            ring.style.opacity = '0';
+        };
+        const handleMouseEnterViewport = () => {
+            dot.style.opacity = '1';
+            ring.style.opacity = '1';
+        };
 
-        const handleMouseDown = () => setIsClicking(true);
-        const handleMouseUp = () => setIsClicking(false);
+        const handleMouseDown = () => {
+            // Squish effect on click
+            ring.style.transform += ' scale(0.75)';
+            dot.style.transform += ' scale(1.2)';
+        };
+        const handleMouseUp = () => {
+            ring.style.transform = ring.style.transform.replace(' scale(0.75)', '');
+            dot.style.transform = dot.style.transform.replace(' scale(1.2)', '');
+        };
 
         window.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseleave', handleMouseLeaveViewport);
@@ -26,46 +41,14 @@ const CustomCursor = () => {
         window.addEventListener('mousedown', handleMouseDown);
         window.addEventListener('mouseup', handleMouseUp);
 
-        // Hover detection for interactive elements
-        const handleMouseOver = (e) => {
-            const target = e.target;
-            // Check if it's an interactive element
-            if (
-                target.tagName.toLowerCase() === 'a' ||
-                target.tagName.toLowerCase() === 'button' ||
-                target.closest('a') !== null ||
-                target.closest('button') !== null ||
-                target.classList.contains('interactive')
-            ) {
-                setIsHovering(true);
-            } else {
-                setIsHovering(false);
-            }
-        };
-
-        window.addEventListener('mouseover', handleMouseOver);
-
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseleave', handleMouseLeaveViewport);
             document.removeEventListener('mouseenter', handleMouseEnterViewport);
             window.removeEventListener('mousedown', handleMouseDown);
             window.removeEventListener('mouseup', handleMouseUp);
-            window.removeEventListener('mouseover', handleMouseOver);
         };
-    }, [isVisible]);
-
-    // Spring physics for the outer ring (delayed movement)
-    const springProps = useSpring({
-        x: mousePosition.x,
-        y: mousePosition.y,
-        config: { tension: 400, friction: 28, mass: 0.5 },
-    });
-
-    // Calculate scales based on state
-    let innerDotScale = isClicking ? 0.5 : (isHovering ? 0 : 1);
-    let outerRingScale = isClicking ? 0.8 : (isHovering ? 1.5 : 1);
-    let outerRingOpacity = isHovering ? 0.1 : 0.5;
+    }, []);
 
     // Don't render on mobile/touch devices
     if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
@@ -75,43 +58,49 @@ const CustomCursor = () => {
     return (
         <>
             <style jsx global>{`
-        /* Hide default cursor globally on non-touch devices */
-        @media (pointer: fine) {
-          * {
-            cursor: none !important;
-          }
-        }
-      `}</style>
-
-            {/* Outer delayed ring */}
-            <animated.div
-                className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full border border-violet-500 bg-violet-500/10 flex items-center justify-center transition-opacity duration-300"
-                style={{
-                    width: 32,
-                    height: 32,
-                    transform: springProps.x.to((x) => `translate3d(${x - 16}px, ${springProps.y.get() - 16}px, 0) scale(${outerRingScale})`),
-                    opacity: isVisible ? outerRingOpacity : 0,
-                    backdropFilter: isHovering ? 'invert(1)' : 'none',
-                }}
-            />
-
-            {/* Inner instant dot */}
-            <div
-                className="fixed top-0 left-0 pointer-events-none z-[10000] rounded-full bg-violet-400 transition-all duration-150 ease-out flex items-center justify-center"
-                style={{
-                    width: 8,
-                    height: 8,
-                    transform: `translate3d(${mousePosition.x - 4}px, ${mousePosition.y - 4}px, 0) scale(${innerDotScale})`,
-                    opacity: isVisible ? 1 : 0,
-                }}
-            >
-                {/* Play icon overlay for hover state on specific elements (like project view) */}
-                {isHovering && (
-                    <div className="absolute opacity-0 scale-50 transition-all duration-300" style={{ opacity: innerDotScale === 0 ? 1 : 0, transform: `scale(${innerDotScale === 0 ? 1 : 0})` }}>
-                        <span className="text-white text-[10px]">↗</span>
-                    </div>
-                )}
-            </div>
+                @media (pointer: fine) {
+                    * {
+                        cursor: none !important;
+                    }
+                }
+                .custom-cursor-dot {
+                    width: 6px;
+                    height: 6px;
+                    background-color: #a78bfa; /* violet-400 */
+                    border-radius: 50%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    pointer-events: none;
+                    z-index: 99999;
+                    will-change: transform;
+                    transform: translate3d(-100px, -100px, 0);
+                    transition: opacity 0.15s ease-out, transform 0.1s ease-out;
+                }
+                .custom-cursor-ring {
+                    width: 36px;
+                    height: 36px;
+                    border: 1.5px solid rgba(167, 139, 250, 0.4);
+                    border-radius: 50%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    pointer-events: none;
+                    z-index: 99998;
+                    will-change: transform;
+                    transform: translate3d(-100px, -100px, 0);
+                    /* GPU-accelerated smooth trailing lag effect using native browser transitions */
+                    transition: 
+                        opacity 0.2s ease-out, 
+                        width 0.2s ease-out, 
+                        height 0.2s ease-out, 
+                        border-color 0.2s ease-out, 
+                        background-color 0.2s ease-out,
+                        transform 0.08s cubic-bezier(0.25, 1, 0.5, 1);
+                }
+            `}</style>
+            <div ref={dotRef} className="custom-cursor-dot" />
+            <div ref={ringRef} className="custom-cursor-ring" />
         </>
     );
 };

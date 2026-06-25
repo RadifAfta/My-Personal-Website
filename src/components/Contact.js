@@ -190,7 +190,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Location</p>
-                    <p className="text-white">Surabaya, Indonesia</p>
+                    <p className="text-white">Jember, East Java, Indonesia <span className="text-xs text-violet-400 font-medium block mt-0.5">(Open to Remote / Relocation)</span></p>
                   </div>
                 </div>
               </div>
