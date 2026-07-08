@@ -3,46 +3,60 @@ import React, { useState, useEffect } from 'react';
 const Preloader = () => {
     const [loading, setLoading] = useState(true);
     const [fading, setFading] = useState(false);
+    const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        // Keep the preloader for 1.5 seconds, then fade it out
-        const fadeTimer = setTimeout(() => {
-            setFading(true);
-        }, 1500);
+        const interval = setInterval(() => {
+            setProgress((prev) => {
+                if (prev >= 100) {
+                    clearInterval(interval);
+                    return 100;
+                }
+                return prev + Math.floor(Math.random() * 20) + 10;
+            });
+        }, 60);
 
-        // Remove the preloader completely from the DOM after the fade transition
-        const removeTimer = setTimeout(() => {
-            setLoading(false);
-        }, 2000); // 1.5s + 0.5s fade duration
-
-        return () => {
-            clearTimeout(fadeTimer);
-            clearTimeout(removeTimer);
-        };
+        return () => clearInterval(interval);
     }, []);
+
+    useEffect(() => {
+        if (progress >= 100) {
+            const fadeTimer = setTimeout(() => {
+                setFading(true);
+            }, 100);
+
+            const removeTimer = setTimeout(() => {
+                setLoading(false);
+            }, 300);
+
+            return () => {
+                clearTimeout(fadeTimer);
+                clearTimeout(removeTimer);
+            };
+        }
+    }, [progress]);
 
     if (!loading) return null;
 
     return (
         <div
-            className={`fixed inset-0 z-[99999] bg-black flex flex-col items-center justify-center transition-opacity duration-500 ease-in-out ${fading ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            className={`fixed inset-0 z-[99999] bg-[#080809] flex flex-col items-center justify-center transition-opacity duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${fading ? 'opacity-0 pointer-events-none' : 'opacity-100'
                 }`}
         >
-            <div className="relative flex flex-col items-center">
-                {/* Animated logo/loader */}
-                <div className="w-16 h-16 relative">
-                    <div className="absolute inset-0 rounded-full border-t-2 border-r-2 border-violet-500 animate-[spin_1s_linear_infinite]" />
-                    <div className="absolute inset-2 rounded-full border-b-2 border-l-2 border-fuchsia-500 animate-[spin_1.5s_linear_infinite_reverse]" />
-                    <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-violet-600 to-fuchsia-500 animate-pulse" />
+            <div className="w-64 font-mono text-xs">
+                <div className="flex justify-between mb-2 text-white uppercase tracking-wider font-bold">
+                    <span>SYS_INIT // RADIF_IO</span>
+                    <span>{Math.min(progress, 100)}%</span>
                 </div>
-
-                {/* Loading text with animated dots */}
-                <div className="mt-6 text-xl tracking-[0.3em] font-light text-gray-300 flex">
-                    <span>R</span>
-                    <span>A</span>
-                    <span>D</span>
-                    <span>I</span>
-                    <span>F</span>
+                <div className="w-full h-1.5 bg-neutral-900 border border-neutral-800 relative overflow-hidden">
+                    <div
+                        className="h-full bg-safety transition-all duration-75 ease-out"
+                        style={{ width: `${Math.min(progress, 100)}%` }}
+                    />
+                </div>
+                <div className="mt-2 text-neutral-600 text-[10px] uppercase tracking-wider flex justify-between">
+                    <span>CORES: ACTIVE</span>
+                    <span>BOOT_OK</span>
                 </div>
             </div>
         </div>
@@ -50,3 +64,4 @@ const Preloader = () => {
 };
 
 export default Preloader;
+

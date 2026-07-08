@@ -15,14 +15,18 @@ import ScrollProgress from './components/ScrollProgress';
 
 const MainLayout = () => {
   return (
-    <>
+    <div className="min-h-screen bg-[#080809] text-[#94A3B8] flex flex-col pt-20">
       <Navbar />
-      <Hero />
-      <About />
-      <Projects />
-      <Contact />
+      <main className="flex-grow w-full max-w-7xl mx-auto px-4 md:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 border-t border-l border-neutral-900 bg-[#080809] blueprint-grid">
+          <Hero />
+          <About />
+          <Projects />
+          <Contact />
+        </div>
+      </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
@@ -32,16 +36,16 @@ const App = () => {
       <Preloader />
       <CustomCursor />
       <ScrollProgress />
-      <div className="min-h-screen bg-black text-white font-sans selection:bg-violet-600/30">
+      <div className="min-h-screen bg-[#080809] text-[#94A3B8] font-sans selection:bg-safety/20 selection:text-white">
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<MainLayout />} />
           <Route path="/project/:id" element={
-            <>
+            <div className="min-h-screen bg-[#080809] text-[#94A3B8]">
               <Navbar />
               <ProjectDetail />
               <Footer />
-            </>
+            </div>
           } />
         </Routes>
       </div>

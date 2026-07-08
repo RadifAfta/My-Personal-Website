@@ -1,324 +1,146 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Typewriter from 'typewriter-effect';
-import { useSpring, animated, config } from '@react-spring/web';
 
 const Hero = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
   const [showCvDropdown, setShowCvDropdown] = useState(false);
-  const canvasRef = useRef(null);
   const cvDropdownRef = useRef(null);
 
   useEffect(() => {
-    setIsVisible(true);
-
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 2,
-        y: (e.clientY / window.innerHeight - 0.5) * 2,
-      });
-    };
-
-    const handleScroll = () => {
-      setShowScrollIndicator(window.scrollY < 80);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('scroll', handleScroll);
-
-    // Close CV dropdown on click outside
     const handleClickOutside = (e) => {
       if (cvDropdownRef.current && !cvDropdownRef.current.contains(e.target)) {
         setShowCvDropdown(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
-  // Interactive canvas — constellation network that reacts to mouse
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let animationId;
-    let mouse = { x: 0, y: 0 };
-    let particles = [];
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    // Create particles
-    const particleCount = 60;
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        radius: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
-      });
-    }
-
-    const handleCanvasMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-    window.addEventListener('mousemove', handleCanvasMouseMove);
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p, i) => {
-        // Move
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Wrap around
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        // Mouse repel effect
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 150) {
-          const force = (150 - dist) / 150;
-          p.x += (dx / dist) * force * 2;
-          p.y += (dy / dist) * force * 2;
-        }
-
-        // Draw particle
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(167, 139, 250, ${p.opacity})`;
-        ctx.fill();
-
-        // Draw connections
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx2 = p.x - p2.x;
-          const dy2 = p.y - p2.y;
-          const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-
-          if (dist2 < 120) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(167, 139, 250, ${0.08 * (1 - dist2 / 120)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
-      });
-
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationId);
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', handleCanvasMouseMove);
-    };
-  }, []);
-
-  // Animations
-  const fadeUp1 = useSpring({
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-    config: { tension: 200, friction: 24 },
-  });
-
-  const fadeUp2 = useSpring({
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-    delay: 150,
-    config: { tension: 200, friction: 24 },
-  });
-
-  const fadeUp3 = useSpring({
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-    delay: 300,
-    config: { tension: 200, friction: 24 },
-  });
-
-  const fadeUp4 = useSpring({
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-    delay: 500,
-    config: { tension: 200, friction: 24 },
-  });
-
-  // Subtle parallax on the glow orb
-  const orbAnimation = useSpring({
-    transform: `translate(${mousePosition.x * 20}px, ${mousePosition.y * 20}px)`,
-    config: config.gentle,
-  });
-
-  const scrollIndicatorAnim = useSpring({
-    opacity: showScrollIndicator ? 0.6 : 0,
-    transform: showScrollIndicator ? 'translateY(0)' : 'translateY(15px)',
-    config: { tension: 250, friction: 22 },
-  });
-
   return (
-    <section className="min-h-screen relative flex items-center justify-center overflow-hidden bg-black">
-      {/* Interactive constellation canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-0 pointer-events-none"
-      />
+    <>
+      {/* CELL 1: HERO & BRAND INFO (Spans 8 columns) */}
+      <div className="col-span-12 lg:col-span-8 border-r border-b border-neutral-900 bg-[#080809] p-8 md:p-12 flex flex-col justify-between min-h-[420px] relative group">
+        {/* Decorative corner accent */}
+        <div className="absolute top-0 right-0 w-2 h-2 border-r border-t border-neutral-800 group-hover:border-safety transition-mechanical" />
+        
+        <div>
+          {/* Small greeting */}
+          <div className="font-mono text-[10px] tracking-[0.2em] text-neutral-500 uppercase mb-4 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 bg-safety rounded-sm" />
+            Muhammad Radif Aftamaulana // Portfolio
+          </div>
 
-      {/* Glow orb — follows mouse */}
-      <animated.div
-        style={orbAnimation}
-        className="absolute w-[450px] h-[450px] bg-violet-600/10 rounded-full blur-[100px] pointer-events-none z-0"
-      />
+          {/* Name - Stark structural typography */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-white uppercase leading-none mb-6">
+            Radif
+            <br />
+            <span className="text-transparent" style={{ WebkitTextStroke: '1px #ffffff' }}>Aftamaulana</span>
+          </h1>
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
-
-        {/* Small greeting */}
-        <animated.p style={fadeUp1} className="text-sm tracking-[0.3em] uppercase text-violet-400 mb-6 font-medium">
-          Hello, I'm
-        </animated.p>
-
-        {/* Name with shimmer */}
-        <animated.h1 style={fadeUp2} className="text-6xl md:text-7xl lg:text-8xl font-black leading-[0.95] mb-6 relative">
-          <span className="text-white">Radif</span>
-          <br />
-          <span className="hero-shimmer bg-gradient-to-r from-violet-500 via-fuchsia-400 to-violet-500 bg-clip-text text-transparent bg-[length:200%_auto]">
-            Aftamaulana
-          </span>
-        </animated.h1>
-
-        {/* Typewriter */}
-        <animated.div style={fadeUp3} className="mb-10">
-          <div className="text-lg md:text-xl text-gray-500 font-light">
-            <Typewriter
+          {/* Monospace Technical Role readout */}
+          <div className="font-mono text-xs md:text-sm text-neutral-400 bg-neutral-950/50 border border-neutral-900 py-3 px-4 inline-block w-full max-w-lg mb-8">
+            <span className="text-safety">&gt;</span> ROLE: <Typewriter
               options={{
                 strings: [
                   "Software Engineer",
                   "Fullstack & Backend Developer",
                   "Certified Cloud Practitioner",
-                  "Building Scalable Software Solutions",
+                  "Building Scalable Software Solutions"
                 ],
                 autoStart: true,
                 loop: true,
-                delay: 60,
-                deleteSpeed: 30,
+                delay: 50,
+                deleteSpeed: 25,
+                wrapperClassName: "text-white font-bold",
+                cursorClassName: "text-safety"
               }}
             />
           </div>
-        </animated.div>
+        </div>
 
-        {/* Buttons */}
-        <animated.div style={fadeUp4} className="flex flex-wrap items-center justify-center gap-4">
+        {/* Buttons - Monospace & Inverting Mechanical triggers */}
+        <div className="flex flex-wrap gap-4 z-10 font-mono text-xs">
           <a
             href="#projects"
-            className="group px-7 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-full text-white font-medium transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/30 hover:scale-105"
+            className="px-6 py-3 border border-white bg-white text-black uppercase tracking-wider font-bold hover:bg-transparent hover:text-white transition-mechanical"
           >
-            View Projects
-            <span className="inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-1">→</span>
+            [View Projects]
           </a>
+          
           <div className="relative" ref={cvDropdownRef}>
             <button
               onClick={() => setShowCvDropdown(!showCvDropdown)}
-              className="group px-7 py-3 border border-violet-500/30 bg-violet-500/10 rounded-full text-violet-300 font-medium transition-all duration-300 hover:border-violet-500 hover:text-white hover:bg-violet-500/20 hover:scale-105 backdrop-blur-sm flex items-center gap-2"
+              className="px-6 py-3 border border-neutral-700 bg-transparent text-neutral-300 uppercase tracking-wider font-bold hover:border-safety hover:text-white transition-mechanical flex items-center gap-2"
             >
-              Download CV
-              <svg className={`w-4 h-4 transition-transform duration-300 ${showCvDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              [Get Resume]
+              <svg className={`w-3.5 h-3.5 transition-mechanical ${showCvDropdown ? 'rotate-180 text-safety' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
 
-            {/* CV Language Dropdown */}
+            {/* Monospace Dropdown Menu */}
             {showCvDropdown && (
-              <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-52 bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl shadow-violet-950/50 overflow-hidden z-50 animate-fade-in">
+              <div className="absolute top-full mt-2 left-0 w-56 bg-[#0A0A0B] border border-neutral-800 shadow-2xl z-50">
                 <a
                   href="/assets/CV/CV_Muhammad Radif A_English.pdf"
                   target="_blank"
                   download="CV_Muhammad Radif A_English.pdf"
                   onClick={() => setShowCvDropdown(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-violet-500/20 hover:text-white transition-all duration-200 border-b border-white/5"
+                  className="flex items-center justify-between px-4 py-3 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-mechanical border-b border-neutral-900"
                 >
-                  <span className="w-8 h-8 rounded-full bg-violet-500/20 border border-violet-500/30 flex items-center justify-center text-xs font-bold text-violet-300">EN</span>
-                  <div>
-                    <p className="font-medium">English</p>
-                    <p className="text-xs text-gray-500">International Version</p>
-                  </div>
-                  <svg className="w-4 h-4 ml-auto opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
+                  <span>English CV (PDF)</span>
+                  <span className="text-[10px] text-safety font-bold">EN</span>
                 </a>
                 <a
                   href="/assets/CV/CV_Muhammad Radif A_Indonesia.pdf"
                   target="_blank"
                   download="CV_Muhammad Radif A_Indonesia.pdf"
                   onClick={() => setShowCvDropdown(false)}
-                  className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-violet-500/20 hover:text-white transition-all duration-200"
+                  className="flex items-center justify-between px-4 py-3 text-neutral-400 hover:bg-neutral-900 hover:text-white transition-mechanical"
                 >
-                  <span className="w-8 h-8 rounded-full bg-fuchsia-500/20 border border-fuchsia-500/30 flex items-center justify-center text-xs font-bold text-fuchsia-300">ID</span>
-                  <div>
-                    <p className="font-medium">Indonesia</p>
-                    <p className="text-xs text-gray-500">Versi Bahasa Indonesia</p>
-                  </div>
-                  <svg className="w-4 h-4 ml-auto opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
+                  <span>Indonesian CV (PDF)</span>
+                  <span className="text-[10px] text-neutral-500">ID</span>
                 </a>
               </div>
             )}
           </div>
+
           <a
             href="#contact"
-            className="group px-7 py-3 border border-white/15 rounded-full text-gray-300 font-medium transition-all duration-300 hover:border-white/30 hover:text-white hover:scale-105 bg-white/[0.03] backdrop-blur-sm"
+            className="px-6 py-3 border border-neutral-700 bg-[#0A0A0B]/50 text-neutral-400 uppercase tracking-wider font-bold hover:border-white hover:text-white transition-mechanical"
           >
-            Get in Touch
-            <span className="inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-1">→</span>
+            [Get In Touch]
           </a>
-        </animated.div>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <animated.div
-        style={scrollIndicatorAnim}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center"
-      >
-        <span className="text-xs tracking-widest uppercase text-gray-600 mb-2">Scroll</span>
-        <div className="w-5 h-8 border border-gray-600 rounded-full flex justify-center pt-1.5">
-          <div className="w-1 h-2 bg-gray-500 rounded-full animate-bounce" />
+      {/* CELL 2: PORTRAIT & SYSTEM STATS (Spans 4 columns) */}
+      <div className="col-span-12 lg:col-span-4 border-r border-b border-neutral-900 bg-[#0A0A0B] p-6 flex flex-col justify-between group overflow-hidden relative">
+        <div className="relative aspect-square w-full border border-neutral-800 overflow-hidden bg-neutral-950">
+          <img
+            src="/assets/hero/radifhima.JPG"
+            alt="Muhammad Radif Aftamaulana"
+            className="w-full h-full object-cover grayscale brightness-90 hover:grayscale-0 hover:scale-[1.03] transition-mechanical"
+          />
+          <div className="absolute top-2 left-2 px-2 py-0.5 font-mono text-[9px] bg-[#080809]/90 border border-neutral-800 text-neutral-400 tracking-wider">
+            PORTRAIT_SYS
+          </div>
         </div>
-      </animated.div>
 
-      {/* Shimmer animation */}
-      <style jsx>{`
-        @keyframes shimmer {
-          0% { background-position: -200% center; }
-          100% { background-position: 200% center; }
-        }
-        .hero-shimmer {
-          animation: shimmer 4s ease-in-out infinite;
-        }
-      `}</style>
-    </section>
+        {/* Stats Matrix */}
+        <div className="grid grid-cols-2 gap-2 mt-4 font-mono">
+          <div className="border border-neutral-900 bg-[#080809] p-3 text-left hover:border-neutral-700 transition-mechanical">
+            <div className="text-[9px] uppercase text-neutral-500 tracking-wider">Experience</div>
+            <div className="text-sm font-bold text-white mt-1">2+ YEARS</div>
+          </div>
+          <div className="border border-neutral-900 bg-[#080809] p-3 text-left hover:border-neutral-700 transition-mechanical">
+            <div className="text-[9px] uppercase text-neutral-500 tracking-wider">Status</div>
+            <div className="text-sm font-bold text-safety mt-1">AVAILABLE</div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

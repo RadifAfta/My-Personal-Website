@@ -2,18 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 
 html {
-    scroll-behavior: smooth;
-  }
-
+  scroll-behavior: smooth;
+  background-color: #080809;
+}
 
 /* Hide browser scrollbar */
 body {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
+  background-color: #080809;
+  color: #94A3B8;
 }
 
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+::selection {
+  background-color: rgba(255, 90, 0, 0.2);
+  color: #FFFFFF;
+}
+
+/* Mechanical transition utility */
+.transition-mechanical {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-duration: 200ms;
+}
+
+/* Custom Grid Blueprint lines */
+.blueprint-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+}

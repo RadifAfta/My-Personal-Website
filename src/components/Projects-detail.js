@@ -1,8 +1,6 @@
-// import { image } from 'framer-motion/client';
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-// Sample project data - in a real application, you would fetch this from your API or database
 const projectsData = [
   {
     id: 12,
@@ -240,27 +238,7 @@ const projectsData = [
     technologies: "Built with CodeIgniter (backend), MySQL (database), HTML/CSS/JS (frontend), deployed on Apache server.",
     codeLink: "https://github.com/radifafta/rahasia",
     year: 2024
-  },
-  // {
-  //   id: 5,
-  //   title: "Boarding House Management Platform",
-  //   description: "A web-based platform for listing and managing boarding houses in specific areas with booking features.",
-  //   fullDescription: "A room rental management system for landlords and tenants. This platform simplifies the process of finding, listing, and managing boarding houses.",
-  //   image: "/assets/project6.jpg",
-  //   tags: ["Laravel", "MySQL", "Vuejs"],
-  //   video: "/assets/DemoBootcampWeb.mp4",
-  //   features: [
-  //     "Property Listings: Owners can list available rooms with images and descriptions.",
-  //     "Room Management: Allows landlords to track occupancy status.",
-  //     "Tenant Booking System: Enables users to book available rooms.",
-  //     "Payment Tracking: Records payments and rental history.",
-  //     "Location - Based Search: Helps users find boarding houses near their preferred area."
-  //   ],
-  //   technologies: "This system is built using Laravel as the backend framework, ensuring robust and scalable management. The frontend leverages Bootstrap and Vue.js for a clean and responsive interface. The database is handled with MySQL, allowing structured and efficient storage.",
-  //   codeLink: "https://github.com/yourusername/ecommerce-dashboard",
-  //   year: 2024
-  // }
-  // Additional projects would be defined here
+  }
 ];
 
 const ProjectDetail = () => {
@@ -276,13 +254,11 @@ const ProjectDetail = () => {
   useEffect(() => {
     setVideoError(false);
     setIsVideoPlaying(false);
-    // In a real app, you would fetch this data from an API
-    // This simulates an API call with a timeout
     const timer = setTimeout(() => {
       const foundProject = projectsData.find(p => p.id === parseInt(id));
       setProject(foundProject);
       setLoading(false);
-    }, 300);
+    }, 150);
 
     return () => clearTimeout(timer);
   }, [id]);
@@ -338,13 +314,12 @@ const ProjectDetail = () => {
     setSelectedImage(null);
   };
 
-
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-violet-950 to-black" />
-        <div className="relative z-10">
-          <div className="w-16 h-16 border-t-4 border-b-4 border-violet-500 border-solid rounded-full animate-spin"></div>
+      <div className="min-h-screen flex items-center justify-center bg-[#080809] font-mono text-xs">
+        <div className="flex items-center gap-2 text-neutral-400">
+          <span className="w-1.5 h-1.5 bg-safety animate-pulse rounded-sm" />
+          <span>LOADING_DIRECTORY...</span>
         </div>
       </div>
     );
@@ -352,20 +327,15 @@ const ProjectDetail = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center relative text-center px-4">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-violet-950 to-black" />
-        <div className="absolute inset-0">
-          <div className="absolute top-40 left-10 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-fuchsia-600/10 rounded-full blur-3xl animate-pulse" />
-        </div>
-        <div className="relative z-10">
-          <h2 className="text-4xl font-bold mb-4 text-white">Project Not Found</h2>
-          <p className="text-gray-300 mb-8">The project you're looking for doesn't exist or has been removed.</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#080809] text-center px-4 font-mono text-xs">
+        <div className="border border-neutral-900 bg-[#0A0A0B] p-8 max-w-md w-full">
+          <h2 className="text-sm font-bold text-white uppercase tracking-wider mb-2">ERROR // DIRECTORY_NOT_FOUND</h2>
+          <p className="text-neutral-500 mb-6 uppercase">The specified system node could not be located.</p>
           <Link
-            to="/projects"
-            className="px-6 py-3 bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-full transition-all hover:scale-105 shadow-lg shadow-violet-500/20"
+            to="/#projects"
+            className="inline-block px-5 py-2.5 border border-neutral-700 bg-neutral-900 hover:border-safety hover:text-white transition-mechanical text-neutral-400"
           >
-            Back to Projects
+            [RETURN_TO_PORTFOLIO]
           </Link>
         </div>
       </div>
@@ -373,334 +343,238 @@ const ProjectDetail = () => {
   }
 
   return (
-    <div className="min-h-screen relative bg-black">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-violet-950/30 to-black" />
-      <div className="absolute inset-0 opacity-40">
-        {/* Grid pattern using inline SVG instead of external asset */}
-        <div className="absolute top-0 right-0 w-full h-full opacity-10"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M0 0 L100 0 L100 100 L0 100 Z' fill='none' stroke='%23ffffff' stroke-opacity='0.1' stroke-width='0.5'/%3E%3C/svg%3E")`,
-            backgroundSize: '50px 50px'
-          }}
-        />
-      </div>
-      <div className="absolute inset-0">
-        <div className="absolute top-40 left-10 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-fuchsia-600/10 rounded-full blur-3xl animate-pulse" />
-      </div>
-
-      <div className="container mx-auto px-6 py-24 relative z-10">
+    <div className="min-h-screen bg-[#080809] text-[#94A3B8] pb-16 blueprint-grid">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
+        
         {/* Back Button */}
-        <Link
-          to="/#projects"
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-12 group"
-        >
-          <span className="w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 group-hover:bg-violet-500/20 group-hover:border-violet-500/30 transition-all">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-          </span>
-          <span>Back to Projects</span>
-        </Link>
-
-        {/* Project Header */}
-        <div className="mb-12">
-          <h1 className="text-5xl md:text-6xl font-black mb-4 leading-tight">
-            <span className="bg-gradient-to-r from-violet-500 via-fuchsia-400 to-pink-500 bg-clip-text text-transparent">
-              {project.title}
-            </span>
-          </h1>
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.tags.map((tag, idx) => {
-              const colorClasses = [
-                "bg-violet-950 text-violet-300 border-violet-700 hover:bg-violet-900",
-                "bg-fuchsia-950 text-fuchsia-300 border-fuchsia-700 hover:bg-fuchsia-900",
-                "bg-blue-950 text-blue-300 border-blue-700 hover:bg-blue-900"
-              ];
-
-              return (
-                <span
-                  key={idx}
-                  className={`px-4 py-1.5 text-xs font-medium rounded-full border transition-colors ${colorClasses[idx % colorClasses.length]}`}
-                >
-                  {tag}
-                </span>
-              );
-            })}
-          </div>
-          <p className="text-lg text-gray-300 max-w-3xl leading-relaxed">{project.description}</p>
+        <div className="mb-8">
+          <Link
+            to="/#projects"
+            className="inline-flex items-center gap-2 font-mono text-xs text-neutral-500 hover:text-white transition-mechanical"
+          >
+            <span>[← RETURN_TO_SYSTEM_REPOSITORY]</span>
+          </Link>
         </div>
 
-        {/* Project Media (Video + Thumbnail or Just Image) */}
-        <div className="relative w-full aspect-video mb-16 rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-violet-500/10 group bg-black">
-          {/* Thumbnail Image */}
-          <img
-            src={project.image || `/assets/projects/project-${project.id}.jpg`}
-            alt={project.title}
-            className={`w-full h-full object-contain transition-opacity duration-500 ${isVideoPlaying ? 'opacity-0' : 'opacity-100'} absolute inset-0`}
-          />
-
-          {project.video && !videoError ? (
-            <>
-              {/* Video Player - Changed from object-cover to object-contain to prevent cropping */}
-              <video
-                ref={videoRef}
-                src={project.video}
-                className={`w-full h-full object-contain transition-opacity duration-500 ${isVideoPlaying ? 'opacity-100' : 'opacity-0'} absolute inset-0`}
-                onEnded={() => setIsVideoPlaying(false)}
-                onClick={toggleVideo}
-                onError={() => setVideoError(true)}
-                muted // Add muted attribute to remove audio
-              />
-
-              {/* Video Controls Overlay */}
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-center justify-center cursor-pointer"
-                onClick={toggleVideo}
-              >
-                <button
-                  className={`w-20 h-20 rounded-full bg-violet-600/80 backdrop-blur-sm flex items-center justify-center transition-transform group-hover:scale-105 ${isVideoPlaying ? 'opacity-0 hover:opacity-100' : 'opacity-100'}`}
-                >
-                  {isVideoPlaying ? (
-                    <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                    </svg>
-                  ) : (
-                    <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  )}
-                </button>
-
-                <div className="absolute bottom-4 left-4 right-4 flex flex-col">
-                  <p className={`text-white font-medium text-lg mb-1 ${isVideoPlaying ? 'opacity-0 hover:opacity-100 transition-opacity' : 'opacity-100'}`}>
-                    {project.title} - Demo Video
-                  </p>
-                  <p className={`text-gray-300 text-sm ${isVideoPlaying ? 'opacity-0 hover:opacity-100 transition-opacity' : 'opacity-100'}`}>
-                    Click to {isVideoPlaying ? 'pause' : 'play'} demo video
-                  </p>
-                </div>
-              </div>
-            </>
-          ) : (
-            /* Subtle badge when there is no video or video fails to load */
-            <div className="absolute bottom-4 right-4 px-4 py-2 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-xs text-gray-300 flex items-center gap-1.5 pointer-events-none select-none">
-              <span className={`w-2 h-2 rounded-full animate-pulse ${videoError ? 'bg-red-500' : 'bg-yellow-500'}`} />
-              <span>
-                {videoError 
-                  ? "Demo Video Currently Unavailable (File Not Found or Unsupported)" 
-                  : "Preview Image (No Demo Video Available)"}
+        {/* Outer Bento wrapper for Project Detail */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 border-t border-l border-neutral-900 bg-[#080809]">
+          
+          {/* Header Block - spans 12 cols */}
+          <div className="col-span-12 border-r border-b border-neutral-900 bg-[#0A0A0B] p-8">
+            <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-4 mb-4">
+              <h1 className="text-3xl md:text-5xl font-extrabold tracking-tighter text-white uppercase">
+                {project.title}
+              </h1>
+              <span className="font-mono text-xs text-safety tracking-wider">
+                SYS_YEAR // {project.year}
               </span>
             </div>
-          )}
-        </div>
-
-        {/* Project Details */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left Content */}
-          <div className="lg:col-span-2 space-y-8">
-            <div>
-              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
-                <span className="mr-2">Overview</span>
-                <div className="w-12 h-px bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
-              </h2>
-              <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
-                <p className="text-gray-300 leading-relaxed">
-                  {project.fullDescription}
-                </p>
-              </div>
+            
+            {/* Monospace tags */}
+            <div className="flex flex-wrap gap-x-3 gap-y-1.5 font-mono text-xs text-neutral-500 mb-6">
+              {project.tags.map((tag, idx) => (
+                <span key={idx}>
+                  [{tag.toUpperCase()}]
+                </span>
+              ))}
             </div>
-
-            <div>
-              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
-                <span className="mr-2">Key Features</span>
-                <div className="w-12 h-px bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
-              </h2>
-              <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
-                <ul className="space-y-4">
-                  {project.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-4">
-                      <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
-                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                        </svg>
-                      </div>
-                      <p className="text-gray-300">{feature}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
-                <span className="mr-2">Technology Stack</span>
-                <div className="w-12 h-px bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
-              </h2>
-              <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
-                <p className="text-gray-300 leading-relaxed">
-                  {project.technologies}
-                </p>
-              </div>
-            </div>
-            {project.images && project.images.length > 0 && (
-              <div>
-                <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
-                  <span className="mr-2">Project Gallery</span>
-                  <div className="w-12 h-px bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
-                </h2>
-                <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {project.images.map((image, idx) => (
-                      <div
-                        key={idx}
-                        className="relative group cursor-pointer"
-                        onClick={() => openImageModal(image)}
-                      >
-                        <img
-                          src={image}
-                          alt={`${project.title} - Screenshot ${idx + 1}`}
-                          className="w-full h-32 object-cover rounded-lg border border-white/10 transition-all group-hover:border-violet-500/30 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all rounded-lg flex items-center justify-center">
-                          <svg className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                          </svg>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-            {/* Image Modal */}
-            {showImageModal && (
-              <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                <div className="relative max-w-4xl max-h-[90vh] w-full">
-                  <button
-                    onClick={closeImageModal}
-                    className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center text-white hover:bg-black/70 transition-all"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                  <img
-                    src={selectedImage}
-                    alt="Project Screenshot"
-                    className="w-full h-full object-contain rounded-lg"
-                  />
-                </div>
-              </div>
-            )}
+            
+            <p className="text-sm text-neutral-400 leading-relaxed max-w-4xl">{project.description}</p>
           </div>
 
-          {/* Right Sidebar */}
-          <div className="space-y-8 lg:sticky lg:top-24 lg:self-start">
-            <div>
-              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
-                <span className="mr-2">Project Info</span>
-                <div className="w-12 h-px bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
-              </h2>
-              <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-sm text-gray-400 mb-1 flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      Year
-                    </h3>
-                    <p className="text-white font-medium">{project.year}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm text-gray-400 mb-1 flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                      </svg>
-                      Category
-                    </h3>
-                    <p className="text-white font-medium">{project.tags[0]}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Media Player Cell - spans 8 cols */}
+          <div className="col-span-12 lg:col-span-8 border-r border-b border-neutral-900 bg-[#080809] p-6 flex flex-col justify-center">
+            <div className="relative w-full aspect-video border border-neutral-900 overflow-hidden bg-neutral-950 flex items-center justify-center">
+              <img
+                src={project.image}
+                alt={project.title}
+                className={`w-full h-full object-contain grayscale brightness-75 transition-opacity duration-300 ${isVideoPlaying ? 'opacity-0' : 'opacity-100'} absolute inset-0`}
+              />
 
-            <div>
-              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
-                <span className="mr-2">Links</span>
-                <div className="w-12 h-px bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
-              </h2>
-              <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
-                {/* Video control with updated text */}
-                {project.video && !videoError ? (
-                  <button
+              {project.video && !videoError ? (
+                <>
+                  <video
+                    ref={videoRef}
+                    src={project.video}
+                    className={`w-full h-full object-contain transition-opacity duration-300 ${isVideoPlaying ? 'opacity-100' : 'opacity-0'} absolute inset-0`}
+                    onEnded={() => setIsVideoPlaying(false)}
                     onClick={toggleVideo}
-                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-xl transition-all hover:scale-[1.02] shadow-lg shadow-violet-500/20 mb-4"
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                    <span>{isVideoPlaying ? 'Pause Demo' : 'Play Demo'}</span>
-                  </button>
-                ) : (
-                  <button
-                    disabled
-                    className="flex items-center justify-center gap-2 w-full py-3.5 bg-white/5 border border-white/10 text-gray-500 rounded-xl mb-4 cursor-not-allowed select-none"
-                  >
-                    <svg className="w-5 h-5 opacity-40" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                    <span>{videoError ? 'Video Unavailable' : 'No Video Available'}</span>
-                  </button>
-                )}
+                    onError={() => setVideoError(true)}
+                    muted
+                  />
 
-                <a
-                  href={project.codeLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-3.5 bg-white/5 border border-white/10 rounded-xl transition-all hover:bg-violet-950/50 hover:border-violet-500/30"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
+                  {/* Mechanical Overlay Play Button */}
+                  <div
+                    className="absolute inset-0 flex items-center justify-center cursor-pointer bg-black/40 group/video"
+                    onClick={toggleVideo}
                   >
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                  </svg>
-                  <span>View Source Code</span>
-                </a>
+                    <button
+                      className="w-16 h-16 bg-[#080809]/90 border border-neutral-800 text-white flex items-center justify-center hover:border-safety transition-mechanical"
+                    >
+                      {isVideoPlaying ? (
+                        <svg className="w-5 h-5 text-safety" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                        </svg>
+                      ) : (
+                        <svg className="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      )}
+                    </button>
+                    
+                    <div className="absolute bottom-3 left-3 right-3 font-mono text-[10px] text-neutral-400 bg-[#080809]/90 py-1.5 px-3 border border-neutral-800 flex justify-between">
+                      <span>{isVideoPlaying ? 'SYS_PLAYING' : 'SYS_READY'} {"// " + project.title}</span>
+                      <span>CLICK TO {isVideoPlaying ? 'PAUSE' : 'PLAY'} DEMO</span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="absolute bottom-3 right-3 px-3 py-1 bg-[#080809]/90 border border-neutral-800 font-mono text-[9px] text-neutral-500">
+                  {videoError ? 'DEMO_VIDEO: UNAVAILABLE' : 'MEDIA: PREVIEW_IMAGE'}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Sidebar Info & Controls - spans 4 cols */}
+          <div className="col-span-12 lg:col-span-4 border-r border-b border-neutral-900 bg-[#0A0A0B] p-6 md:p-8 flex flex-col justify-between font-mono text-xs">
+            <div>
+              <h3 className="text-xs uppercase text-white font-bold mb-4 tracking-wider">{"✦ SYSTEM_DIRECTORY"}</h3>
+              
+              <div className="space-y-4 border-b border-neutral-900 pb-6 mb-6">
+                <div>
+                  <span className="text-neutral-500 block mb-1">NODE_ID</span>
+                  <p className="text-white">PROJECT_REF_{String(project.id).padStart(2, '0')}</p>
+                </div>
+                <div>
+                  <span className="text-neutral-500 block mb-1">DEPLOYMENT_YEAR</span>
+                  <p className="text-white">{project.year}</p>
+                </div>
+                <div>
+                  <span className="text-neutral-500 block mb-1">ACCESSIBLE_ENVIRONMENT</span>
+                  <p className="text-white uppercase">{project.tags[0]}</p>
+                </div>
               </div>
             </div>
 
-            {/* New section for additional info */}
-            <div>
-              <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fuchsia-200 to-violet-200 bg-clip-text text-transparent inline-flex items-center">
-                <span className="mr-2">Need More Info?</span>
-                <div className="w-12 h-px bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
-              </h2>
-              <div className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:border-violet-500/20 transition-all shadow-lg shadow-violet-950/5">
-                <p className="text-gray-300 mb-4">Interested in learning more about this project or exploring collaboration opportunities?</p>
-                <Link
-                  to="/#contact"
-                  className="flex items-center justify-center gap-2 w-full py-3.5 bg-white/5 border border-white/10 rounded-xl transition-all hover:bg-violet-950/50 hover:border-violet-500/30"
+            <div className="space-y-3">
+              {project.video && !videoError && (
+                <button
+                  onClick={toggleVideo}
+                  className="w-full py-3 text-center border border-safety bg-transparent text-safety uppercase font-bold hover:bg-safety hover:text-white transition-mechanical"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  <span>Get in Touch</span>
-                </Link>
+                  {isVideoPlaying ? '[PAUSE_SYSTEM_DEMO]' : '[PLAY_SYSTEM_DEMO]'}
+                </button>
+              )}
+
+              <a
+                href={project.codeLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full block py-3 text-center border border-white bg-white text-black uppercase font-bold hover:bg-transparent hover:text-white transition-mechanical"
+              >
+                [GET_SOURCE_CODE ↗]
+              </a>
+            </div>
+          </div>
+
+          {/* Left Details Block - spans 8 cols */}
+          <div className="col-span-12 lg:col-span-8 border-r border-b border-neutral-900 bg-[#080809] p-8 space-y-8">
+            <div>
+              <h3 className="font-mono text-xs uppercase tracking-wider text-neutral-500 mb-3 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-safety rounded-sm" />
+                {"✦ OVERVIEW // TECHNICAL DETAILS"}
+              </h3>
+              <div className="border-l border-neutral-800 pl-4">
+                <p className="text-sm md:text-base text-neutral-300 leading-relaxed font-sans">{project.fullDescription}</p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-mono text-xs uppercase tracking-wider text-neutral-500 mb-3 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-safety rounded-sm" />
+                {"✦ KEY_ATTRIBUTES // PARAMETERS"}
+              </h3>
+              <ul className="space-y-2 text-xs text-neutral-400 font-mono">
+                {project.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="text-safety">&gt;</span>
+                    <span>{feature.toUpperCase()}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-mono text-xs uppercase tracking-wider text-neutral-500 mb-3 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-safety rounded-sm" />
+                {"✦ STACK_INFRASTRUCTURE // STABILITY"}
+              </h3>
+              <div className="border-l border-neutral-800 pl-4">
+                <p className="text-sm md:text-base text-neutral-300 leading-relaxed font-sans">{project.technologies}</p>
               </div>
             </div>
           </div>
+
+          {/* Right Gallery Block - spans 4 cols */}
+          <div className="col-span-12 lg:col-span-4 border-r border-b border-neutral-900 bg-[#0A0A0B] p-8 flex flex-col justify-between">
+            <div>
+              <h3 className="font-mono text-xs uppercase tracking-wider text-neutral-500 mb-4 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-safety rounded-sm" />
+                {"✦ VISUAL_LOGS // SCREENSHOTS"}
+              </h3>
+              
+              {project.images && project.images.length > 0 ? (
+                <div className="grid grid-cols-2 gap-3">
+                  {project.images.map((image, idx) => (
+                    <div
+                      key={idx}
+                      className="relative border border-neutral-850 hover:border-safety bg-neutral-950 overflow-hidden cursor-pointer aspect-video"
+                      onClick={() => openImageModal(image)}
+                    >
+                      <img
+                        src={image}
+                        alt={`${project.title} - Screenshot ${idx + 1}`}
+                        className="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 hover:scale-105 transition-mechanical"
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="font-mono text-[11px] text-neutral-600 uppercase">NO SCREENSHOTS LOGGED FOR THIS NODE.</p>
+              )}
+            </div>
+
+            <div className="mt-8 font-mono text-[10px] text-neutral-600">
+              {"PROJECT_SYS_REF_" + String(project.id).padStart(2, '0') + " // OK"}
+            </div>
+          </div>
+
         </div>
+
       </div>
+
+      {/* Screenshot Modal */}
+      {showImageModal && (
+        <div 
+          className="fixed inset-0 bg-[#080809]/95 z-[9999] flex items-center justify-center p-4 cursor-pointer"
+          onClick={closeImageModal}
+        >
+          <div className="relative max-w-4xl max-h-[85vh] w-full border border-neutral-800 bg-neutral-950 p-2">
+            <button
+              onClick={closeImageModal}
+              className="absolute -top-10 right-0 font-mono text-xs text-neutral-400 hover:text-white uppercase"
+            >
+              [CLOSE_WINDOW]
+            </button>
+            <img
+              src={selectedImage}
+              alt="System Screenshot Max"
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

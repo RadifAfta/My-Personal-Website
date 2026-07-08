@@ -63,10 +63,10 @@ const CustomCursor = () => {
                         cursor: none !important;
                     }
                 }
-                .custom-cursor-dot {
+                                .custom-cursor-dot {
                     width: 6px;
                     height: 6px;
-                    background-color: #a78bfa; /* violet-400 */
+                    background-color: #FF5A00; /* safety-orange */
                     border-radius: 50%;
                     position: fixed;
                     top: 0;
@@ -75,12 +75,12 @@ const CustomCursor = () => {
                     z-index: 99999;
                     will-change: transform;
                     transform: translate3d(-100px, -100px, 0);
-                    transition: opacity 0.15s ease-out, transform 0.1s ease-out;
+                    transition: opacity 0.1s ease-out, transform 0.05s ease-out;
                 }
                 .custom-cursor-ring {
-                    width: 36px;
-                    height: 36px;
-                    border: 1.5px solid rgba(167, 139, 250, 0.4);
+                    width: 32px;
+                    height: 32px;
+                    border: 1px solid rgba(255, 90, 0, 0.4);
                     border-radius: 50%;
                     position: fixed;
                     top: 0;
@@ -91,12 +91,12 @@ const CustomCursor = () => {
                     transform: translate3d(-100px, -100px, 0);
                     /* GPU-accelerated smooth trailing lag effect using native browser transitions */
                     transition: 
-                        opacity 0.2s ease-out, 
-                        width 0.2s ease-out, 
-                        height 0.2s ease-out, 
-                        border-color 0.2s ease-out, 
-                        background-color 0.2s ease-out,
-                        transform 0.08s cubic-bezier(0.25, 1, 0.5, 1);
+                        opacity 0.15s ease-out, 
+                        width 0.15s ease-out, 
+                        height 0.15s ease-out, 
+                        border-color 0.15s ease-out, 
+                        background-color 0.15s ease-out,
+                        transform 0.05s cubic-bezier(0.16, 1, 0.3, 1);
                 }
             `}</style>
             <div ref={dotRef} className="custom-cursor-dot" />
