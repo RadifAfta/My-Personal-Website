@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 const Projects = () => {
   const projects = [
     {
+      id: 13,
+      title: "OrderX – AI WhatsApp Customer Service Bot",
+      description: "Automated WhatsApp sales assistant powered by BullMQ, Redis, and Groq Cloud (LLaMA-3.1), with automated Google Sheets rekap.",
+      image: "/assets/thumbnail/OrderX.png",
+      tags: ["TypeScript", "Node.js", "Redis", "BullMQ", "Groq Cloud", "Google Sheets"],
+      category: "Other",
+      year: 2026
+    },
+    {
       id: 12,
       title: "Amora MES – Manufacturing Execution System",
       description: "Enterprise MES built with Laravel, Alpine.js, and Docker, automating workflow tracking on private Linux NAS servers.",

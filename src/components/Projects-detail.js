@@ -3,6 +3,26 @@ import { useParams, Link } from 'react-router-dom';
 
 const projectsData = [
   {
+    id: 13,
+    title: "OrderX – AI WhatsApp Customer Service Bot",
+    description: "Automated WhatsApp sales assistant powered by BullMQ, Redis, and Groq Cloud (LLaMA-3.1), with automated Google Sheets rekap.",
+    fullDescription: "OrderX is an AI-powered WhatsApp customer service bot designed to automate e-commerce order recapitulation, client relations, and operational databases 24/7. It integrates modern backend paradigms like message queuing (BullMQ + Redis) to handle traffic spikes under rate limits, AI intent classification via Groq Cloud (LLaMA-3.1), and an interactive multi-turn state machine via Redis. OrderX classifies user intents (e.g., placing orders, checking stock, complaints) before storage, filters typos automatically to match the seller's catalog, interactively requests shipping details (Name & Address), and logs completed order details instantly to Google Sheets. Natural 'typing...' simulation status is preserved for human-like WhatsApp interaction.",
+    image: "/assets/thumbnail/OrderX.png",
+    tags: ["TypeScript", "Node.js", "Redis", "BullMQ", "Groq Cloud", "Google Sheets"],
+    video: "/assets/demo/demoOrderX.mp4",
+    features: [
+      "AI Intent Classifier (Classifies and filters Order, Ask Stock, Complaint, and Smalltalk)",
+      "Typo-Tolerant Product Matching (Resolves typos like 'sate kambenk 2' to catalog products like 'Sate Kambing')",
+      "Multi-Turn State Machine (Redis session state management with a 15-minute TTL lock)",
+      "Automated Order Rekap (Interactively collects Name & Address, then commits details and totals to Google Sheets)",
+      "BullMQ + Redis Message Queue (Implements concurrency 1 processing and Exponential Backoff Retry)",
+      "Humanized WhatsApp Flow (Natural 'typing...' status simulation)"
+    ],
+    technologies: "Built with Node.js and TypeScript. Implements BullMQ + Redis for asynchronous queueing and retry strategies. Leverages Groq Cloud (LLaMA-3.1) for NLP classifications. Manages customer chat state sessions via Redis key-value storage. Adopts the Provider Pattern to decouple business logic, making the system ready to transition from whatsapp-web.js to the Official WhatsApp Cloud API.",
+    codeLink: "https://github.com/RadifAfta/orderx-whatsapp-bot",
+    year: 2026
+  },
+  {
     id: 12,
     title: "Amora MES – Manufacturing Execution System",
     description: "Enterprise MES built with Laravel, Alpine.js, and Docker, automating workflow tracking on private Linux NAS servers.",
