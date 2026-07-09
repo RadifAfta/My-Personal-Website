@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Base Background Plate -->
+  <rect width="32" height="32" rx="6" fill="#0A0A0B"/>
+  <!-- Sharp 1px Architectural Border -->
+  <rect x="0.5" y="0.5" width="31" height="31" rx="5.5" stroke="#262626" stroke-width="1"/>
+  
+  <!-- Mechanical 'R' Monogram (Sharp 45/90 degree angles) -->
+  <!-- Main Loop Structure -->
+  <path d="M11 10H19L22 13V16L19 19H13" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
+  <!-- Engineering Orange Accent Stem -->
+  <path d="M13 10V22" stroke="#FF5A00" stroke-width="2" stroke-linecap="square"/>
+  <!-- Leg Diagonal -->
+  <path d="M17 19L21 23" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"/>
+</svg>
