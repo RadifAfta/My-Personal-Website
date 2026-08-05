@@ -207,21 +207,26 @@ const About = () => {
           <div className="mb-8 font-mono text-xs">
             <h3 className="text-xs uppercase text-white font-bold mb-3 tracking-wider">{"// EDUCATION"}</h3>
             {education.map((edu, idx) => (
-              <div key={idx} className="border border-neutral-900 bg-[#080809]/50 p-4 relative group/edu hover:border-neutral-800 transition-mechanical">
-                <div className="absolute top-2 right-2 text-[10px] text-neutral-500 uppercase">
-                  {edu.period}
+              <div key={idx} className="border border-neutral-900 bg-[#080809]/50 p-4 group/edu hover:border-neutral-800 transition-mechanical space-y-3">
+                <div className="border-b border-neutral-900 pb-2.5">
+                  <div className="text-[10px] text-neutral-400 font-mono uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                    <span className="w-1 h-1 bg-safety rounded-full inline-block" />
+                    {edu.period}
+                  </div>
+                  <h4 className="font-bold text-white uppercase text-xs tracking-wide leading-tight">
+                    {edu.school}
+                  </h4>
                 </div>
-                <div className="font-bold text-white uppercase text-xs mb-1 pr-16 leading-tight">
-                  {edu.school}
-                </div>
-                <div className="text-neutral-400 text-[11px] mb-2">
+                <div className="text-neutral-400 text-[11px] leading-relaxed">
                   {edu.degree}
                 </div>
-                <div className="inline-block px-2 py-0.5 bg-neutral-900 border border-neutral-800 text-[10px] text-safety uppercase tracking-wider font-bold mb-2">
-                  {edu.gpa}
+                <div>
+                  <span className="inline-block px-2.5 py-0.5 bg-neutral-900 border border-neutral-800 text-[10px] text-safety uppercase tracking-wider font-bold rounded-sm">
+                    {edu.gpa}
+                  </span>
                 </div>
-                <div className="text-[10px] text-neutral-500 leading-normal border-t border-neutral-900 pt-2 mt-2">
-                  <span className="text-neutral-400 block mb-1">COURSES:</span>
+                <div className="text-[10px] text-neutral-500 leading-relaxed border-t border-neutral-900 pt-2.5">
+                  <span className="text-neutral-400 block mb-1 font-semibold">COURSES:</span>
                   {edu.courses}
                 </div>
               </div>
