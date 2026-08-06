@@ -1,149 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import projectsData from '../data/projects.json';
 
 const Projects = () => {
-  const projects = [
-    {
-      id: 13,
-      title: "OrderX – AI WhatsApp Customer Service Bot",
-      description: "Automated WhatsApp sales assistant powered by BullMQ, Redis, and Groq Cloud (LLaMA-3.1), with automated Google Sheets rekap.",
-      image: "/assets/thumbnail/OrderX.png",
-      tags: ["TypeScript", "Node.js", "Redis", "BullMQ", "Groq Cloud", "Google Sheets"],
-      category: "Other",
-      year: 2026
-    },
-    {
-      id: 12,
-      title: "Amora MES – Manufacturing Execution System",
-      description: "Enterprise MES built with Laravel, Alpine.js, and Docker, automating workflow tracking on private Linux NAS servers.",
-      image: "/assets/thumbnail/awi_mes_thumbnail.jpeg",
-      tags: ["Laravel", "PHP", "Tailwind CSS", "Alpine.js", "MySQL", "Docker", "Linux", "NAS Server"],
-      category: "Laravel",
-      year: 2026
-    },
-    {
-      id: 1,
-      title: "TSI Inventory – Warehouse Management System",
-      description: "Industrial-grade inventory system for PT Multi Spunindo Jaya Tbk, optimizing real-time stock tracking and complex reporting.",
-      image: "/assets/thumbnail/tsiinventory-thumbnail.png",
-      tags: ["Laravel", "PHP", "MySQL", "Service Layer"],
-      category: "Laravel",
-      year: 2026
-    },
-    {
-      id: 2,
-      title: "Lifepath – AI Personal Assistant Bot",
-      description: "Automated personal assistant bot integrated with Telegram, deployed on GCP with Supabase for data persistence.",
-      image: "/assets/thumbnail/lifepath-thumbnail.jpg",
-      tags: ["Node.js", "GCP", "Supabase", "PM2", "Telegram API"],
-      category: "Other",
-      year: 2026
-    },
-    {
-      id: 3,
-      title: "Dashboard PPE Violation Detection",
-      description: "AI-based real-time monitoring dashboard detecting safety violations using YOLOv5 and CCTV integration.",
-      image: "/assets/thumbnailApdDashboard.PNG",
-      tags: ["Flask", "Python", "YOLOv5", "Computer Vision"],
-      category: "Python",
-      year: 2024
-    },
-    {
-      id: 4,
-      title: "Rintisar – Startup Hub Booking Platform",
-      description: "Startup founder platform for booking spaces with Flip payments, Google OAuth, and Geolocation search.",
-      image: "/assets/thumbnail/rintisar_thumbnail.PNG",
-      tags: ["Laravel", "PHP", "Flip API", "OAuth", "Geolocation"],
-      category: "Laravel",
-      year: 2025
-    },
-    {
-      id: 5,
-      title: "Diserasi – AI-Powered Dating App",
-      description: "Matchmaking platform with AI compatibility scoring, geolocation matching, and Flip payment integration.",
-      image: "/assets/thumbnail/diserasi_thumbnail.PNG",
-      tags: ["Laravel", "AI", "OAuth", "Flip", "Geolocation"],
-      category: "Laravel",
-      year: 2025
-    },
-    {
-      id: 6,
-      title: "JTV Attendance System – IoT Integrated",
-      description: "IoT-based attendance tracking with QR check-in, Flutter mobile app, and Express.js backend.",
-      image: "/assets/thumbnail/jtv_thumbnail.PNG",
-      tags: ["Express.js", "Flutter", "MySQL", "IoT"],
-      category: "Other",
-      year: 2025
-    }
-  ];
-
-  const legacyProjects = [
-    {
-      id: 7,
-      title: "Inventory Management System",
-      description: "A web-based system for managing inventory, tracking stock levels, and optimizing supply chain operations. Built with React and Node.js.",
-      image: "/assets/thumbnail/inventory-management-thumbnail.png",
-      tags: ["React", "Node.js", "Express.js", "MySQL"],
-      category: "React",
-      isLegacy: true
-    },
-    {
-      id: 8,
-      title: "Portfolio Website",
-      description: "A React.js-powered personal website designed to showcase projects, skills, and work experience.",
-      image: "/assets/PROJECT.PNG",
-      tags: ["React js", "Html", "Css"],
-      category: "React",
-      isLegacy: true
-    },
-    {
-      id: 9,
-      title: "Parking Gate Monitoring Website",
-      description: "A Laravel-based web application integrated with IoT devices to monitor parking gate activity in real-time.",
-      image: "/assets/thumbnailDasboardSmartGate.PNG",
-      tags: ["Laravel", "Firebase", "Bootstrap"],
-      category: "Laravel",
-      isLegacy: true
-    },
-    {
-      id: 10,
-      title: "Bootcamp Website with AI Recommendation",
-      description: "A Laravel-based bootcamp management platform featuring AI-driven recommendations for personalized learning.",
-      image: "/assets/thumbnailBootcampWeb.PNG",
-      tags: ["Laravel", "MySQL", "Bootstrap"],
-      category: "Laravel",
-      isLegacy: true
-    },
-    {
-      id: 11,
-      title: "Admin Website for Company Profile",
-      description: "A CodeIgniter-based CRUD system that allows administrators to manage and update company profile information efficiently.",
-      image: "/assets/thumbnailAdminPms.PNG",
-      tags: ["PHP", "CodeIgniter", "MySQL"],
-      category: "Other",
-      isLegacy: true
-    },
-  ];
-
   const categories = ['All', 'Laravel', 'React', 'Python', 'Other'];
   const [activeFilter, setActiveFilter] = useState('All');
   const [showMore, setShowMore] = useState(false);
   const [isVisible, setIsVisible] = useState({});
   const projectRefs = useRef([]);
 
-  const allProjects = [...projects, ...legacyProjects];
+  const allProjects = projectsData;
   const filteredProjects = activeFilter === 'All'
     ? (showMore ? allProjects : allProjects.slice(0, 6))
     : allProjects.filter(p => p.category === activeFilter);
 
   const getTotalCount = (cat) => {
-    const combined = [...projects, ...legacyProjects];
-    return cat === 'All' ? combined.length : combined.filter(p => p.category === cat).length;
+    return cat === 'All' ? allProjects.length : allProjects.filter(p => p.category === cat).length;
   };
 
   const getCategoryCount = (cat) => {
     if (cat === 'All') {
-      return showMore ? allProjects.length : 6;
+      return showMore ? allProjects.length : Math.min(6, allProjects.length);
     }
     return getTotalCount(cat);
   };
