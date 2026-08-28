@@ -40,7 +40,7 @@ const About = () => {
     {
       company: 'PT Amora Walet Indonesia',
       role: 'Fullstack Developer',
-      period: 'May 2026 - Present',
+      period: 'May 2026 - August 2026',
       desc: 'Designed and developed internal Manufacturing Execution Systems (MES) to digitize and automate the entire edible bird\'s nest production workflow. Built end-to-end workflow tracking modules from raw materials washing, quality grading, to finished products. Integrated inventory control and quality control (QC) management systems to ensure physical stock accuracy and minimize human error. Containerized and deployed applications using Docker on Linux environments and local NAS servers.',
       tags: ['Laravel', 'PHP', 'Tailwind CSS', 'Alpine.js', 'MySQL', 'Docker', 'Linux', 'NAS Server'],
     },
@@ -160,7 +160,7 @@ const About = () => {
             {experiences.map((exp, index) => (
               <div key={index} className="relative pl-6 border-l border-neutral-800 hover:border-safety transition-mechanical pb-4 last:pb-0">
                 <div className="absolute -left-[5px] top-1.5 w-2 h-2 bg-neutral-900 border border-neutral-700 rounded-sm" />
-                
+
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
                   <h4 className="text-sm font-bold text-white uppercase tracking-tight">
                     {exp.company}
@@ -169,15 +169,15 @@ const About = () => {
                     {exp.period}
                   </span>
                 </div>
-                
+
                 <p className="font-mono text-xs text-safety mb-3 font-semibold">
                   &gt; {exp.role.toUpperCase()}
                 </p>
-                
+
                 <p className="text-neutral-300 text-sm leading-relaxed mb-4 font-sans">
                   {exp.desc}
                 </p>
-                
+
                 <div className="flex flex-wrap gap-x-3 gap-y-1.5 font-mono text-[10px]">
                   {exp.tags.map((tag) => (
                     <span key={tag} className="text-neutral-500 hover:text-white transition-mechanical">
