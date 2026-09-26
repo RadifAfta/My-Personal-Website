@@ -1,5 +1,27 @@
 [
   {
+    "id": 14,
+    "title": "Distributor & Wholesale ERP-POS System",
+    "description": "Enterprise-grade ERP & POS system built with Laravel 13, Inertia.js v2, and Vue 3, featuring multi-unit inventory conversions, concurrency-safe POS, credit limit tracking, and automated WhatsApp cash closure reports.",
+    "fullDescription": "Distributor & Wholesale ERP-POS is an end-to-end operational and cashier management platform engineered to resolve the supply chain and retail complexities of wholesale distributors and grocery suppliers. Built with modern Laravel 13, Inertia.js v2, and Vue 3, the platform integrates high-speed concurrency-safe POS transactions with pessimistic locking, automated multi-tier unit conversions (cartons/boxes to units), dynamic credit limit and overdue receivables management for partner stores, and daily cash reconciliation (tutup buku kasir) with automated executive summary delivery via WhatsApp Gateway.",
+    "image": "/assets/thumbnail/Distributor-Operasional.png",
+    "tags": ["Laravel 13", "Inertia.js", "Vue 3", "MySQL", "Tailwind CSS", "WhatsApp Gateway"],
+    "video": "/assets/demo/Distributor-Operasional.mp4",
+    "features": [
+      "Smart Multi-Unit Inventory Engine (Hierarchical conversion ratios e.g. 1 Box = 24 Pcs with automated base-unit deduction and critical stock alerts)",
+      "High-Speed Point of Sale (POS) & Concurrency Safety (Instant SKU/barcode scan with Database Transactions & Pessimistic Locking to eliminate race conditions)",
+      "Credit & Debt Management (Customer credit limits, automated overdue aging calculation, installment tracking, and risk mitigation)",
+      "Daily Cash Closure & Reconciliation (Precise drawer cash auditing with surplus/deficit detection and Excel export)",
+      "Automated WhatsApp Gateway Dispatch (Instant daily executive closure reports covering revenue, estimated gross profit, cash delta, and overdue debts sent directly to business owners)",
+      "Executive Analytics Dashboard (Real-time gross profit metrics, 7-day revenue comparison trends between cash vs credit, and comprehensive audit trail logging)"
+    ],
+    "technologies": "Engineered with Laravel 13, PHP 8.2+, and MySQL on the backend, paired with Inertia.js v2 and Vue 3 (Composition API) with Tailwind CSS for a reactive Single Page Application experience without page reloads. Incorporates Role-Based Access Control (RBAC) via Spatie Laravel Permission (Super Admin, Manager, Cashier), Pessimistic Database Locking (lockForUpdate) for strict concurrency control, and service/event-driven WhatsApp Gateway integration.",
+    "codeLink": "https://github.com/RadifAfta/Operasional-Distributor",
+    "category": "Laravel",
+    "year": 2026,
+    "isLegacy": false
+  },
+  {
     "id": 13,
     "title": "OrderX – AI WhatsApp Customer Service Bot",
     "description": "Automated WhatsApp sales assistant powered by BullMQ, Redis, and Groq Cloud (LLaMA-3.1), with automated Google Sheets rekap.",
